@@ -1,7 +1,8 @@
 class Temperature{
   public:
-  Temperature(decisionpin, pin1, pin2, pin3, pin4, pin5, pin6, pin7, pin8)
-  int readDigit(int pins[8])
+  //Made all pin args ints, not sure what they should be -Linc
+  Temperature(int decisionpin, int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, int pin7, int pin8);
+  int readDigit(int pins[8]);
   float getTemperature(int digit1, int digit2, int digit3);
   private:
   int mydecisionpin, mypin1, mypin2, mypin3, mypin4, mypin5, mypin6, mypinn7, mypin8;
