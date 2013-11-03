@@ -1,3 +1,7 @@
-int addTime(int t1, int t2);
+
+class time{
+  public:
+  int addTime(int t1, int t2);
 int getTimeInMinutes();
 int getTimeInSeconds();
+}
