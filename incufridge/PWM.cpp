@@ -2,53 +2,53 @@
 
 Pwm::Pwm(int pin, int period, double percentOn, double percentOff, PwmState state)
 {
-  myPin = pin;
-  myPeriod = period; // in minutes
-  myPercentOn = percentOn;
-  myPercentOff = percentOff;
-  myStartState = state;
+  m_myPin = pin;
+  m_myPeriod = period; // in minutes
+  m_myPercentOn = percentOn;
+  m_myPercentOff = percentOff;
+  m_myStartState = state;
 }
 
 void Pwm::Start(){
-  pinMode(myPin, OUTPUT);
-  digitalWrite(myPin, myStartState);
-  currentState = myStartState;
+  pinMode(m_myPin, OUTPUT);
+  digitalWrite(m_myPin, m_myStartState);
+  m_currentState = m_myStartState;
   ComputeTransitions();
 }
 
 void Pwm::ComputeTransitions(){
   //startTime = getTimeInMinutes();
-  startTime = getTimeInSeconds();
-  firstTransitionTime = addTime(startTime, (myPercentOff*myPeriod*60));
-  secondTransitionTime = addTime(startTime, myPeriod*60);
-  foundFirst = true;
+  m_startTime = getTimeInSeconds();
+  m_firstTransitionTime = addTime(m_startTime, (m_myPercentOff*m_myPeriod*60));
+  m_secondTransitionTime = addTime(m_startTime, m_myPeriod*60);
+  m_foundFirst = true;
 }
 
 void Pwm::Stop(){
-  currentState = myStartState;
+  m_currentState = m_myStartState;
   ChangePolarity();  
 }
 
 
 void Pwm::ChangePolarity(){
-  if(currentState == PWM_LOW){
-    currentState = PWM_HIGH;
+  if(m_currentState == PWM_LOW){
+    m_currentState = PWM_HIGH;
   }
   else{
-    currentState = PWM_LOW;
+    m_currentState = PWM_LOW;
   }  
 }
 
 void Pwm::Update(){
-   currentTime = millis();
-   if(currentTime < secondTransitionTime && currentTime >= firstTransitionTime){
-     if(foundFirst){
-     ChangePolarity();
-     foundFirst = false;
+   m_currentTime = millis();
+   if(m_currentTime < m_secondTransitionTime && m_currentTime >= m_firstTransitionTime){
+     if(m_foundFirst){
+     m_ChangePolarity();
+     m_foundFirst = false;
      Serial.println("changed once");
      }
    }
-   else if(currentTime >= secondTransitionTime){
+   else if(m_currentTime >= m_secondTransitionTime){
      ChangePolarity();
      ComputeTransitions();
      Serial.println("changed twice");

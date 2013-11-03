@@ -12,14 +12,14 @@ class Pwm{
   private:
   void ChangePolarity();
   int myPin;
-  double myPeriod;
-  double myPercentOn;
-  double myPercentOff;
-  PwmState myStartState;
-  int startTime;
-  int firstTransitionTime;
-  int secondTransitionTime;
-  int currentTime;
-  PwmState currentState;
-  boolean foundFirst;
+  double m_myPeriod;
+  double m_myPercentOn;
+  double m_myPercentOff;
+  PwmState m_myStartState;
+  int m_startTime;
+  int m_firstTransitionTime;
+  int m_secondTransitionTime;
+  int m_currentTime;
+  PwmState m_currentState;
+  boolean m_foundFirst;
 };
