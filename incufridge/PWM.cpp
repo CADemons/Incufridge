@@ -1,9 +1,9 @@
 #include "project.h"
 
-Pwm::Pwm(int pin, int period, double percentOn, double percentOff, PwmState state)
+Pwm::Pwm(int pin, int periodSecs, double percentOn, double percentOff, PwmState state)
 {
   m_myPin = pin;
-  m_myPeriod = period; // in minutes
+  m_myPeriodSecs = periodSecs;
   m_myPercentOn = percentOn;
   m_myPercentOff = percentOff;
   m_myStartState = state;
@@ -18,9 +18,9 @@ void Pwm::Start(){
 
 void Pwm::ComputeTransitions(){
   //startTime = getTimeInMinutes();
-  m_startTime = getTimeInSeconds();
-  m_firstTransitionTime = addTime(m_startTime, (m_myPercentOff*m_myPeriod*60));
-  m_secondTransitionTime = addTime(m_startTime, m_myPeriod*60);
+  m_startTime = time.getTimeInSeconds();
+  m_firstTransitionTime = time.addTime(m_startTime, (m_myPercentOff*m_myPeriodSecs));
+  m_secondTransitionTime = time.addTime(m_startTime, m_myPeriodSecs);
   m_foundFirst = true;
 }
 
@@ -39,8 +39,10 @@ void Pwm::ChangePolarity(){
   }  
 }
 
+//Run in loop
 void Pwm::Update(){
-   m_currentTime = millis();
+   m_currentTime = time.getTimeInSeconds();
+   //If between transitions
    if(m_currentTime < m_secondTransitionTime && m_currentTime >= m_firstTransitionTime){
      if(m_foundFirst){
      m_ChangePolarity();
@@ -48,6 +50,7 @@ void Pwm::Update(){
      Serial.println("changed once");
      }
    }
+   //If after transitions
    else if(m_currentTime >= m_secondTransitionTime){
      ChangePolarity();
      ComputeTransitions();

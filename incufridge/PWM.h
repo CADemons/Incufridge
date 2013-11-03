@@ -4,7 +4,7 @@ enum PwmState{
 
 class Pwm{
   public:
-  Pwm(int pin, int period, double percentOn, double percentOff, PwmState state);
+  Pwm(int pin, int periodSecs, double percentOn, double percentOff, PwmState state);
   void Start();
   void Stop();
   void Update();
@@ -12,7 +12,7 @@ class Pwm{
   private:
   void ChangePolarity();
   int myPin;
-  double m_myPeriod;
+  double m_myPeriodSecs;
   double m_myPercentOn;
   double m_myPercentOff;
   PwmState m_myStartState;
