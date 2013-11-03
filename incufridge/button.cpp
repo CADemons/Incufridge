@@ -1,10 +1,8 @@
 #include "project.h"
 
-Button::Button(int pin, int holdtime, int level)
+Button::Button(int pin, int level)
 { 
   myPin = pin;
-  pinMode(myPin, OUTPUT);
-  myHoldTime = holdtime; // at least 2.5 seconds
   pressLevel = level;
   if(pressLevel == HIGH){
     releaseLevel = LOW;
@@ -13,18 +11,33 @@ Button::Button(int pin, int holdtime, int level)
     releaseLevel = HIGH;
   }
 }
-void Button::myPress(int holdtime)
-{
+
+void Button::HoldUntilTime(int holdtime){ // at least 2.5 seconds
   digitalWrite(myPin, pressLevel);
   delay(holdtime);
   digitalWrite(myPin, releaseLevel);
-  delay(holdtime);
 }
-void Button::Press()
-{
-  myPress(myHoldTime);
+
+void Button::HoldUntilTemp(String temperature){
+  digitalWrite(myPin, pressLevel);
+  String temp = 0;
+  while(!temp.equals(temperature)){
+    temp = readDisplay();
+  }
 }
-void Button::Hold(int holdtime)
-{
-  myPress(holdtime);
-}
+  
+//void Button::myPress(int holdtime)
+//{
+//  digitalWrite(myPin, pressLevel);
+//  delay(holdtime);
+//  digitalWrite(myPin, releaseLevel);
+//  delay(holdtime);
+//}
+//void Button::Press()
+//{
+//  myPress(myHoldTime);
+//}
+//void Button::Hold(int holdtime)
+//{
+//  myPress(holdtime);
+//}
