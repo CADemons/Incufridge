@@ -1,14 +1,16 @@
 #include "project.h"
-
-int time::getTimeInMinutes(){
-  int t = millis();
-  t = t*1000*60;
+Time::Time(){ 
 }
-int time::addTime(int t1, int t2){
+int Time::getTimeInMinutes(){
+  int t = millis();
+  return(floor(t/60000));
+}
+int Time::addTime(int t1, int t2){
   return (t1 + t2);
 }
 
-int time::getTimeInSeconds(){
+int Time::getTimeInSeconds(){
   int t = millis();
-  t = t*1000;
+  return(floor(t/1000));
 }
+

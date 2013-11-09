@@ -8,3 +8,4 @@ class Fan{
   int myPin;
   int myState;  
 };
+

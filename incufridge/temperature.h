@@ -10,3 +10,4 @@ class Temperature{
   int myDigit1, myDigit2, myDigit3;
   int myPins[8];
 };
+

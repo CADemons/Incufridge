@@ -1,36 +1,49 @@
 #include "project.h"
 const int ButtonHoldTime = 2500;
-Button light(SimpleLight, ButtonHoldTime, 1);
-// Pwm myPwm = Pwm(3, 5, 0.8, 0.2, PWM_LOW);
+//Button light(SimpleLight, ButtonHoldTime, 1);
+Pwm myPwm = Pwm(13, 20, 0.8, 0.2, PWM_LOW);
+CommandProcessor processor ('.',60,0);
 void setup(){
 //  pinMode(3, OUTPUT);
-//  myPwm.Start();
-//  Serial.begin(9600);
-  pinMode(SimpleLight, OUTPUT);
-  pinMode(trans1, INPUT);
-  pinMode(trans2, INPUT);
-  pinMode(trans3, INPUT);
-  pinMode(read1, INPUT);
-  pinMode(read2, INPUT);
-  pinMode(read3, INPUT);
-  pinMode(read4, INPUT);
-  pinMode(read5, INPUT);
-  pinMode(read6, INPUT);
-  pinMode(read7, INPUT);
-  pinMode(read8, INPUT);
+  myPwm.Start();
+  Serial.begin(9600);
+  processor.AddCommand(&go,"go");
+//  pinMode(SimpleLight, OUTPUT);
+//  pinMode(trans1, INPUT);
+//  pinMode(trans2, INPUT);
+//  pinMode(trans3, INPUT);
+//  pinMode(read1, INPUT);
+//  pinMode(read2, INPUT);
+//  pinMode(read3, INPUT);
+//  pinMode(read4, INPUT);
+//  pinMode(read5, INPUT);
+//  pinMode(read6, INPUT);
+//  pinMode(read7, INPUT);
+//  pinMode(read8, INPUT);
   
 
 }
 void loop(){
 //  light.Press();
-//  myPwm.Update();
+  myPwm.Update();
  // digitalWrite(3, HIGH);
   //delay(1000);
  // digitalWrite(3, LOW);
-  //delay(1000);
+  delay(10);
 }
 
+void serialEvent(){
+  processor.ProcessCommand();
+}
 
+void go(String* args){
+  Serial.println("gone");
+  for(int i=0; i<10; i++){
+    if(!args[i].equals("")){
+    Serial.println(args[i]);
+    }
+  }
+}
 /* for integration with GUI
 #include "project.h"
 const int ButtonHoldTime = 250;

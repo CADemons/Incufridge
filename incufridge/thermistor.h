@@ -23,3 +23,4 @@ class Thermistor{
   void Read();
   float ReadTempCelsius();
 };
+

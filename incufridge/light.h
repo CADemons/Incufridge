@@ -9,3 +9,4 @@ class Light{
   int myPin;
   int myPwmState;
 };
+

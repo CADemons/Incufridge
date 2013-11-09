@@ -100,3 +100,4 @@ const int Digit2_Q6_Interrupt2_Pin21 = DigitalPin21;
 
 
 //digit reading from 30-37 in digital pins
+

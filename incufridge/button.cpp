@@ -22,7 +22,7 @@ void Button::HoldUntilTemp(String temperature){
   digitalWrite(myPin, pressLevel);
   String temp = 0;
   while(!temp.equals(temperature)){
-    temp = readDisplay();
+    //temp = readDisplay();
   }
 }
   

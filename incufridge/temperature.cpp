@@ -32,3 +32,4 @@ float Temperature::getTemperature(int digit1, int digit2, int digit3){
   myTemperature = float(digit1*10) + float(digit2) + digit3*0.1;
 }
 
+

@@ -7,4 +7,6 @@
 #include "light.h"
 #include "time.h"
 #include "temperature.h"
+#include "CommandProcessor.h"
+
 
