@@ -7,13 +7,13 @@
 //
 //**************************************************************************
 //
-//  Title		-
-//  Filename		-
+//  Title		- Thermistor class
+//  Filename		- Thermistor.cpp
 //  Originator  	-  
 //  Archive Location	-
 //  Version		-
 //
-//  Overview		-
+//  Overview		- Provides ability to read temperature in Celsius or Farenheit
 //
 //**************************************************************************
 

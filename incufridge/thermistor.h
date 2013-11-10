@@ -7,15 +7,15 @@
 //
 //**************************************************************************
 //
-//  Title		-
-//  Filename		-
-//  Originator  	-  
-//  Archive Location	-
-//  Version		-
+//  Title		- Thermistor class
+//  Filename		- Thermistor.h
+//  Originator  	- 
+//  Archive Location	- 
+//  Version		- 
 //
-//  Overview		-
+//  Overview		- Provides ability to read temperature in Farenheit or Celsius
 //
-//***************************************************************************
+//**************************************************************************
 #ifndef  THERMISTOR_H
 #define	 THERMISTOR_H
 

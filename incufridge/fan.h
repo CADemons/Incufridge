@@ -1,15 +1,44 @@
 #ifndef FAN_H
 #define FAN_H
 
-class Fan{
+//**************************************************************************
+//
+//				COPYRIGHT NOTICE
+//			Copyright 2013 CONCORD ACADEMY
+//		This program is the property of CONCORD ACADEMY
+//		Any unauthorized use or duplication is prohibited
+//
+//**************************************************************************
+//
+//  Title		- Fan class
+//  Filename		- fan.h
+//  Originator  	-  
+//  Archive Location	-
+//  Version		-
+//
+//  Overview		- Provides ability to turn fan on and off
+//
+//**************************************************************************
+
+class Fan {
+  
   public:
-  Fan(int pin, PwmState state);
-  void FanOn();
-  void FanOff();
-  void FanSpeed();
+    Fan(int pin, PwmState state);
+    void FanOn();
+    void FanOff();
+    void FanSpeed();
+    
   private:
-  int myPin;
-  int myState;  
+    int m_pin;
+    int m_state;
 };
+
+//**************************************************************************
+//
+//  REVISION HISTORY:
+//
+//
+//
+//**************************************************************************
 
 #endif
