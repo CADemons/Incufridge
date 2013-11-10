@@ -5,7 +5,6 @@ enum PwmState{
   PWM_LOW, PWM_HIGH
 };
 
-#include "project.h"
 class Pwm{
   public:
   Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmState state);

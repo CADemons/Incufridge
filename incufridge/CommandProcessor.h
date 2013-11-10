@@ -1,8 +1,6 @@
 #ifndef COMMANDPROCESSOR_H
 #define COMMANDPROCESSOR_H
 
-#include "Arduino.h"
-
 typedef void (*func)(String*);
 
 class CommandProcessor{

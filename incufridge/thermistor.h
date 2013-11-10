@@ -19,11 +19,6 @@
 #ifndef  THERMISTOR_H
 #define	 THERMISTOR_H
 
-// Include Files
-
-#include "project.h"
-
-
 enum TemperatureUnits {
   CELSIUS, FARENHEIT
 };
