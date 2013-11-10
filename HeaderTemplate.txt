@@ -1,0 +1,58 @@
+//**************************************************************************
+//
+//				COPYRIGHT NOTICE
+//			Copyright 2013 CONCORD ACADEMY
+//		This program is the property of CONCORD ACADEMY
+//		Any unauthorized use or duplication is prohibited
+//
+//**************************************************************************
+//
+//  Title		-
+//  Filename		-
+//  Originator  	-  
+//  Archive Location	-
+//  Version		-
+//
+//  Overview		-
+//
+//**************************************************************************
+
+
+#ifndef  FILENAME_H
+#define	 FILENAME_H
+
+
+// Include Files
+
+#include "project.h"
+
+
+// Type Definitions
+
+
+
+// Class
+
+
+
+// Public Function Prototypes
+
+
+
+// Public Data
+
+
+
+
+
+//**************************************************************************
+//
+//  REVISION HISTORY:
+//
+//
+//
+//**************************************************************************
+
+
+#endif
+
