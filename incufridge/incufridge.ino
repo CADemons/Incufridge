@@ -2,7 +2,7 @@
 const int ButtonHoldTime = 2500;
 //Button light(SimpleLight, ButtonHoldTime, 1);
 Pwm myPwm = Pwm(13, 20, 0.8, 0.2, PWM_LOW);
-CommandProcessor processor ('.',60,0);
+CommandProcessor processor (';',60,0);
 void setup(){
 //  pinMode(3, OUTPUT);
   myPwm.Start();
@@ -25,7 +25,7 @@ void setup(){
 }
 void loop(){
 //  light.Press();
-  myPwm.Update();
+  Pwm::updateAll();
  // digitalWrite(3, HIGH);
   //delay(1000);
  // digitalWrite(3, LOW);

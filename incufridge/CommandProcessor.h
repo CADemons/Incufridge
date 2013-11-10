@@ -1,5 +1,5 @@
-#ifndef "COMMANDPROCESSOR_H"
-#define "COMMANDPROCESSOR_H"
+#ifndef COMMANDPROCESSOR_H
+#define COMMANDPROCESSOR_H
 
 #include "Arduino.h"
 

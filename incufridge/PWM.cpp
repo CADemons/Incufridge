@@ -11,6 +11,14 @@ Pwm::Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmSta
   pinMode(m_myPin, OUTPUT);
 }
 
+void PwmCommand(String* args){
+  
+}
+
+static void updateAll(){
+  
+}
+
 void Pwm::Start(){
   pinMode(m_myPin, OUTPUT);
   digitalWrite(m_myPin, m_myStartState);

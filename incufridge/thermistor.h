@@ -1,3 +1,6 @@
+#ifndef THERMISTOR_H
+#define THERMISTOR_H
+
 enum TemperatureUnits {
   CELSIUS, FARENHEIT
 };
@@ -24,3 +27,4 @@ class Thermistor{
   float ReadTempCelsius();
 };
 
+#endif

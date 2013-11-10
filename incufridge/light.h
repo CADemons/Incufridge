@@ -1,3 +1,6 @@
+#ifndef LIGHT_H
+#define LIGHT_H
+
 class Light{
   public:
   Light(int pin, PwmState state = PWM_LOW);
@@ -10,3 +13,4 @@ class Light{
   int myPwmState;
 };
 
+#endif

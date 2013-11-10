@@ -1,3 +1,6 @@
+#ifndef FAN_H
+#define FAN_H
+
 class Fan{
   public:
   Fan(int pin, PwmState state);
@@ -9,3 +12,4 @@ class Fan{
   int myState;  
 };
 
+#endif

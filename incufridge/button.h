@@ -1,3 +1,6 @@
+#ifndef BUTTON_H
+#define BUTTON_H
+
 class Button{
   public: 
   Button(int pin, int level = HIGH);
@@ -11,3 +14,5 @@ class Button{
   int releaseLevel;
 //  void myPress(int holdtime);
 };
+
+#endif

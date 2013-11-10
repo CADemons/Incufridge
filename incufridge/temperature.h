@@ -1,3 +1,6 @@
+#ifndef TEMPERATURE_H
+#define TEMPERATURE_H
+
 class Temperature{
   public:
   //Made all pin args ints, not sure what they should be -Linc
@@ -11,3 +14,4 @@ class Temperature{
   int myPins[8];
 };
 
+#endif

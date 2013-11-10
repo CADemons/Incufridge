@@ -1,3 +1,6 @@
+#ifndef MEGA_ARDUINO-PINASSIGNMENTS-H
+#define MEGA_ARDUINO-PINASSIGNMENTS-H
+
 const int AnalogPin0 = 0;
 const int AnalogPin1 = 1;
 const int AnalogPin2 = 2;
@@ -100,4 +103,4 @@ const int Digit2_Q6_Interrupt2_Pin21 = DigitalPin21;
 
 
 //digit reading from 30-37 in digital pins
-
+#endif

@@ -1,15 +1,20 @@
+#ifndef PWM_H
+#define PWM_H
+
 enum PwmState{
   PWM_LOW, PWM_HIGH
 };
 
-#include "time.h"
+#include "project.h"
 class Pwm{
   public:
   Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmState state);
+  void PwmCommand(String* args);
   void Start();
   void Stop();
   void Update();
   void ComputeTransitions();
+  static void updateAll();
   private:
   void ChangePolarity();
   int m_myPin;
@@ -25,3 +30,5 @@ class Pwm{
   boolean m_foundFirst;
   Time m_time;
 };
+
+#endif
