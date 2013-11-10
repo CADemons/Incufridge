@@ -1,21 +1,46 @@
+//**************************************************************************
+//
+//				COPYRIGHT NOTICE
+//			Copyright 2013 CONCORD ACADEMY
+//		This program is the property of CONCORD ACADEMY
+//		Any unauthorized use or duplication is prohibited
+//
+//**************************************************************************
+//
+//  Title		-
+//  Filename		-
+//  Originator  	-  
+//  Archive Location	-
+//  Version		-
+//
+//  Overview		-
+//
+//**************************************************************************
+
 #include "project.h"
 
 Thermistor::Thermistor(int pin, TemperatureUnits units)
 {
-  myPin = pin;
-  pinMode(myPin, INPUT);
-  myUnits = units;
+  m_Pin = pin;
+  pinMode(m_Pin, INPUT);
+  m_Units = units;
 }
-void Thermistor::Read()
+
+//Read the counts
+void Thermistor::m_Read()
 {
-  myCount = analogRead(myPin);
+  m_Count = analogRead(m_Pin);
 }
-float Thermistor::CountsToMilliVolts(int counts)
+
+//Convert counts to millivolts
+float Thermistor::m_CountsToMilliVolts(int counts)
 {
   float millivolts;
-  millivolts = myCount*mySlope + myOffSet;
+  millivolts = m_Count*m_Slope + m_OffSet;
   return millivolts;
 }
+
+//Convert millivolts to Celsius
 float Thermistor::MilliVoltsToCelsius(float millivolts)
 {
   float celsius; 
@@ -24,55 +49,74 @@ float Thermistor::MilliVoltsToCelsius(float millivolts)
  
  // figure out which thermistors will be used- see data sheet 
 }
+
+//Convert Celsius to Farenheit
 float Thermistor::CelsiusToFarenheit(float celsius)
 {
   float farenheit;
   farenheit = celsius*9/5 + 32;
   return farenheit;
 }
+
+//Convert Farenheit to Celsius
 float Thermistor::FarenheitToCelsius(float farenheit)
 {
   float celsius;
   celsius = (farenheit - 32)*5/9;
   return celsius;
 }
-float Thermistor::ReadTempCelsius()
+
+//Read the temperature in Celsius
+float Thermistor::m_ReadTempCelsius()
 {
   float millivolts;
   float temperature;
-  Read();
-  millivolts = CountsToMilliVolts(myCount);
+  m_Read();
+  millivolts = m_CountsToMilliVolts(m_Count);
   temperature = MilliVoltsToCelsius(millivolts);
   return temperature;
 }
+
+//Read the temperature in millivolts
 float Thermistor::ReadMilliVolts(){
   float millivolts;
-  Read();
-  millivolts = CountsToMilliVolts(myCount);
+  m_Read();
+  millivolts = m_CountsToMilliVolts(m_Count);
   return millivolts;
 }
+
+//Read the temperature based on m_Units
 float Thermistor:: ReadTemperature(){
   float temperature;
-  temperature = ReadTempCelsius();
-  if(myUnits == FARENHEIT){
+  temperature = m_ReadTempCelsius();
+  if(m_Units == FARENHEIT){
     temperature = CelsiusToFarenheit(temperature);
   }
   return temperature;
 }
+
+//Read the temperature in Celsius
 float Thermistor::ReadCelsius()
 {
   float celsius;
-  celsius = ReadTempCelsius();
+  celsius = m_ReadTempCelsius();
   return celsius;
 }
+
+//Read the temperature in Farenheit
 float Thermistor::ReadFarenheit()
 {
   float farenheit;
   float celsius;
-  celsius = ReadTempCelsius();
+  celsius = m_ReadTempCelsius();
   farenheit = CelsiusToFarenheit(celsius);
   return farenheit;
 }
 
-  
-
+//**************************************************************************
+//
+//  REVISION HISTORY:
+//
+//
+//
+//**************************************************************************  
