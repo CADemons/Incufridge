@@ -1,15 +1,5 @@
 #include "project.h"
-//#define m_endOfCommand '#'
-//#define m_m_maxCommandLength 60
-//#define m_first 0
-//#define m_endOfString 0
 
-//char command [m_maxCommandLength];
-//int index = m_first;
-
-//void setup() {
-//  Serial.begin(9600);
-//}
 CommandProcessor::CommandProcessor(char endOfCommand, int maxCommandLength, int first){
   m_first = first;
   m_index=m_first;
@@ -29,7 +19,6 @@ void CommandProcessor::AddCharacterToCommand(char nextCharacter) {
 
 void CommandProcessor::ProcessCommand() {
   int nextCharacter;
-  //void (*f)(int) = AddCharacterToCommand;
   if(Serial.available() > 0)
   { 
     nextCharacter = Serial.read();
@@ -61,7 +50,7 @@ void CommandProcessor::ProcessCommand() {
         for(int i=0; i < m_lookupIndex; i++){
           if(m_lookupStrings[i].equals(mainCommand)){
             found=1;
-            m_lookupCommands[i](args);
+            m_lookupCommands[i](m_args);
           }
         }
         if(found == 0){
@@ -77,13 +66,15 @@ void CommandProcessor::ProcessCommand() {
 void CommandProcessor::SplitString(String input, char splitter){
     int count=0;
     while(input.indexOf(splitter) != -1){
-      args[count]=input.substring(0,input.indexOf(splitter));\
+      m_args[count]=input.substring(0,input.indexOf(splitter));\
       input = input.substring(input.indexOf(splitter)+1);
       count++;
     }
-    args[count] = input;
+    m_args[count] = input;
   }
 
-//void loop() {
-//  ProcessCommand();
-//}
+/*
+Revision history:
+1. Created -Linc
+2. Cleaned up names, old comments -Linc
+*/

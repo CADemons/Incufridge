@@ -1,3 +1,8 @@
+#ifndef "COMMANDPROCESSOR_H"
+#define "COMMANDPROCESSOR_H"
+
+#include "Arduino.h"
+
 typedef void (*func)(String*);
 
 class CommandProcessor{
@@ -16,5 +21,13 @@ class CommandProcessor{
   func m_lookupCommands[30];
   String m_lookupStrings[30];
   int m_lookupIndex;
-  String args[20];
+  String m_args[20];
 };
+
+/*
+Revision history:
+1. Created -Linc
+2. Cleaned up names, wrappers -Linc
+*/
+
+#endif
