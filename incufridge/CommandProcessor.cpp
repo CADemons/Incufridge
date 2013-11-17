@@ -22,20 +22,9 @@ void CommandProcessor::ProcessCommand() {
   if(Serial.available() > 0)
   { 
     nextCharacter = Serial.read();
-    if ((nextCharacter >= 'a') && (nextCharacter <= 'z'))
+    if ((nextCharacter >= ' ') && (nextCharacter <= '~'))
     { 
       AddCharacterToCommand(nextCharacter);
-    }
-    else if ((nextCharacter >= 'A') && (nextCharacter <= 'Z'))
-    { 
-      AddCharacterToCommand(nextCharacter);
-    }
-    else if (((nextCharacter >= '0') && (nextCharacter <= '9')) || nextCharacter == ' ')
-    { 
-      AddCharacterToCommand(nextCharacter);
-    }
-    else
-    {
       if (nextCharacter == m_endOfCommand)
       {
         //look up Command

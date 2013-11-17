@@ -18,6 +18,12 @@ Pwm::Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmSta
 }
 
 void Pwm::PwmCommand(String* args){
+  Serial.println("PWM:");
+  Serial.println(args[0]);
+  Serial.println(args[1]);
+  Serial.println(args[2]);
+  Serial.println(args[3]);
+  Serial.println(args[4]);
   PwmState state;
   if(args[4].equals("PWM_HIGH")){
     state = PWM_LOW;
