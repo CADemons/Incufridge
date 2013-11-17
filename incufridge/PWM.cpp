@@ -14,6 +14,7 @@ Pwm::Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmSta
   pinMode(m_myPin, OUTPUT);
   pwms[numPwms] = this;
   numPwms++;
+  m_active = true;
 }
 
 void Pwm::PwmCommand(String* args){
@@ -55,7 +56,8 @@ void Pwm::ComputeTransitions(){
 
 void Pwm::Stop(){
   m_currentState = m_myStartState;
-  ChangePolarity();  
+  ChangePolarity();
+  m_active = false;  
 }
 
 
@@ -72,6 +74,7 @@ void Pwm::ChangePolarity(){
 
 //Run in loop
 void Pwm::Update(){
+  if(m_active){
    m_currentTime = m_time.getTimeInSeconds();
    //If between transitions
    if(m_currentTime < m_secondTransitionTime && m_currentTime >= m_firstTransitionTime){
@@ -87,6 +90,7 @@ void Pwm::Update(){
      ComputeTransitions();
      Serial.println("changed twice");
    }
+  }
 }
 
 

@@ -29,6 +29,7 @@ class Pwm{
   int m_currentTime;
   PwmState m_currentState;
   boolean m_foundFirst;
+  boolean m_active;
   Time m_time;
 };
 
