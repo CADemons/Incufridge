@@ -24,7 +24,6 @@ void CommandProcessor::ProcessCommand() {
     nextCharacter = Serial.read();
     if ((nextCharacter >= ' ') && (nextCharacter <= '~'))
     { 
-      AddCharacterToCommand(nextCharacter);
       if (nextCharacter == m_endOfCommand)
       {
         //look up Command
@@ -46,9 +45,11 @@ void CommandProcessor::ProcessCommand() {
           Serial.println("Command not found.");
         }
         command = "";
-      }
     
+    }else{
+      AddCharacterToCommand(nextCharacter);
     }
+  }
   }
 }
 

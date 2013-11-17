@@ -19,22 +19,23 @@ Pwm::Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmSta
 
 void Pwm::PwmCommand(String* args){
   Serial.println("PWM:");
-  Serial.println(args[0]);
-  Serial.println(args[1]);
-  Serial.println(args[2]);
-  Serial.println(args[3]);
-  Serial.println(args[4]);
   PwmState state;
   if(args[4].equals("PWM_HIGH")){
-    state = PWM_LOW;
-  }else{
     state = PWM_HIGH;
+  }else{
+    state = PWM_LOW;
   }
   char arg0[10],arg1[10],arg2[10],arg3[10];
   args[0].toCharArray(arg0,10);
   args[1].toCharArray(arg1,10);
   args[2].toCharArray(arg2,10);
   args[3].toCharArray(arg3,10);
+  Serial.println(atoi(arg0));
+  Serial.println(atof(arg1));
+  Serial.println(atof(arg2));
+  Serial.println(atof(arg3));
+  Serial.println(state);
+  Serial.println();
   Pwm(atoi(arg0),atof(arg1),atof(arg2),atof(arg3),state);
 }
 
@@ -55,8 +56,9 @@ void Pwm::ComputeTransitions(){
   //startTime = getTimeInMinutes();
   m_startTime = m_time.getTimeInSeconds();
   Serial.println(m_startTime);
-  m_firstTransitionTime = m_time.addTime(m_startTime, (m_myPercentOff*m_myPeriodSecs));
-  m_secondTransitionTime = m_time.addTime(m_startTime, m_myPeriodSecs);
+  m_firstTransitionTime = m_time.addTime(m_startTime, int(m_myPercentOff * m_myPeriodSecs));
+  m_secondTransitionTime = m_time.addTime(m_startTime, int(m_myPeriodSecs));
+  Serial.println(m_myPeriodSecs);
   Serial.println(m_firstTransitionTime);
     Serial.println(m_secondTransitionTime);
   m_foundFirst = true;
