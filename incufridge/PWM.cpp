@@ -1,5 +1,8 @@
 #include "project.h"
 
+int Pwm::numPwms = 0;
+Pwm* Pwm::pwms[20];
+
 Pwm::Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmState state)
 {
   m_myPin = pin;
@@ -9,10 +12,24 @@ Pwm::Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmSta
   m_myStartState = state;
   m_time = Time();
   pinMode(m_myPin, OUTPUT);
+  pwms[numPwms] = this;
+  numPwms++;
+  m_active = true;
 }
 
 void Pwm::PwmCommand(String* args){
-  
+  PwmState state;
+  if(args[4].equals("PWM_HIGH")){
+    state = PWM_LOW;
+  }else{
+    state = PWM_HIGH;
+  }
+  char arg0[10],arg1[10],arg2[10],arg3[10];
+  args[0].toCharArray(arg0,10);
+  args[1].toCharArray(arg1,10);
+  args[2].toCharArray(arg2,10);
+  args[3].toCharArray(arg3,10);
+  Pwm(atoi(arg0),atof(arg1),atof(arg2),atof(arg3),state);
 }
 
 void Pwm::updateAll(){
@@ -41,7 +58,8 @@ void Pwm::ComputeTransitions(){
 
 void Pwm::Stop(){
   m_currentState = m_myStartState;
-  ChangePolarity();  
+  ChangePolarity();
+  m_active = false;  
 }
 
 
@@ -57,7 +75,8 @@ void Pwm::ChangePolarity(){
 }
 
 //Run in loop
-void Pwm::Update() {
+void Pwm::Update(){
+  if(m_active){
    m_currentTime = m_time.getTimeInSeconds();
    //If between transitions
    if(m_currentTime < m_secondTransitionTime && m_currentTime >= m_firstTransitionTime){
@@ -73,6 +92,7 @@ void Pwm::Update() {
      ComputeTransitions();
      Serial.println("changed twice");
    }
+  }
 }
 
 
