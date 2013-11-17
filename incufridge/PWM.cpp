@@ -1,5 +1,7 @@
 #include "project.h"
 
+int Pwm::numPwms = 0;
+
 Pwm::Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmState state)
 {
   m_myPin = pin;
@@ -9,10 +11,23 @@ Pwm::Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmSta
   m_myStartState = state;
   m_time = Time();
   pinMode(m_myPin, OUTPUT);
+  Pwm::pwms[Pwm::numPwms] = this;
+  Pwm::numPwms++;
 }
 
 void Pwm::PwmCommand(String* args){
-  
+  PwmState state;
+  if(args[4].equals("PWM_HIGH")){
+    state = PWM_LOW;
+  }else{
+    state = PWM_HIGH;
+  }
+  char arg0[10],arg1[10],arg2[10],arg3[10];
+  args[0].toCharArray(arg0,10);
+  args[1].toCharArray(arg1,10);
+  args[2].toCharArray(arg2,10);
+  args[3].toCharArray(arg3,10);
+  Pwm(atoi(arg0),atof(arg1),atof(arg2),atof(arg3),state);
 }
 
 void Pwm::updateAll(){
