@@ -1,13 +1,14 @@
 #include "project.h"
 const int ButtonHoldTime = 2500;
 //Button light(SimpleLight, ButtonHoldTime, 1);
-Pwm myPwm = Pwm(13, 20, 0.8, 0.2, PWM_LOW);
+//Pwm myPwm = Pwm(13, 20, 0.8, 0.2, PWM_LOW);
 CommandProcessor processor (';',60,0);
 void setup(){
 //  pinMode(3, OUTPUT);
-  myPwm.Start();
+//  myPwm.Start();
   Serial.begin(9600);
-  processor.AddCommand(&go,"go");
+  processor.AddCommand(&go,"GO");
+  processor.AddCommand(&Pwm::PwmCommand,"PWM");
 //  pinMode(SimpleLight, OUTPUT);
 //  pinMode(trans1, INPUT);
 //  pinMode(trans2, INPUT);
