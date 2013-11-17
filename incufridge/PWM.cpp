@@ -1,6 +1,7 @@
 #include "project.h"
 
 int Pwm::numPwms = 0;
+Pwm* Pwm::pwms[20];
 
 Pwm::Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmState state)
 {
@@ -11,8 +12,8 @@ Pwm::Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmSta
   m_myStartState = state;
   m_time = Time();
   pinMode(m_myPin, OUTPUT);
-  Pwm::pwms[Pwm::numPwms] = this;
-  Pwm::numPwms++;
+  pwms[numPwms] = this;
+  numPwms++;
 }
 
 void Pwm::PwmCommand(String* args){

@@ -14,7 +14,7 @@ class Pwm{
   void Update();
   void ComputeTransitions();
   static void updateAll();
-  static Pwm *pwms[20];
+  static Pwm* pwms[20];
   static int numPwms;
   private:
   void ChangePolarity();
