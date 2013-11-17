@@ -16,7 +16,9 @@ void Pwm::PwmCommand(String* args){
 }
 
 void Pwm::updateAll(){
-  
+  for(int i=0; i<numPwms; i++){
+    pwms[i]->Update();
+  }
 }
 
 void Pwm::Start(){
