@@ -3,14 +3,15 @@
 
 class Light{
   public:
-  Light(int pin, PwmState state = PWM_LOW);
-  void LightOff();
-  void LightOn();
-  void LightDim(int level);
-  void LightFlash(int rate);
+    Light(int pin, PwmState state = PWM_LOW);
+    void LightOff();
+    void LightOn();
+    void DimToLevel(int level);
+    void LightFlash(int rate);
+    void DimOverTime(int startLevel, int endLevel);
   private:
-  int myPin;
-  int myPwmState;
+    int myPin;
+    int myPwmState;
 };
 
 #endif

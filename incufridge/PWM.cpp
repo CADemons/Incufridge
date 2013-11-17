@@ -55,7 +55,7 @@ void Pwm::ChangePolarity(){
 }
 
 //Run in loop
-void Pwm::Update(){
+void Pwm::Update() {
    m_currentTime = m_time.getTimeInSeconds();
    //If between transitions
    if(m_currentTime < m_secondTransitionTime && m_currentTime >= m_firstTransitionTime){
