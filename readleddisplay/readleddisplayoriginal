@@ -1,0 +1,248 @@
+/*trans1, 2, and 3 essentially tell which digit is being updated. 
+read1 through read8 show the actual bit of data (high or low / 1 or 0),
+and correspond to one of the LED screen's lights. 
+digit1, 2, and 3 is the entire byte of data for a number, constructed from 
+the sequence fo read1 to read8. digit1 is the first digit, digit2 the second,
+digit3 the third.
+number1, 2, and 3 are used to convert each digit from its binary state to 
+user-friendly decimal integers. 
+number is the final number, in the form of nn.n
+*/
+int trans1 = 18; 
+int trans2 = 19;
+int trans3 = 20;
+int read1 = 37;
+int read2 = 36;
+int read3 = 35;
+int read4 = 34; 
+int read5 = 33;
+int read6 = 32;
+int read7 = 31;
+int read8 = 30;
+String digit1, digit2, digit3, number1, number2, number3, number;
+String portread1, portread2, portread3;
+
+// Reads the state (high/low) of a particular pin (trans1, trans2, or trans3)
+int listening(int transpin){
+  int state = digitalRead(transpin);
+  return state;
+}
+
+// Read bits from LED and convert into a byte, based on which digit is being updated
+String readDigits(int transpin) {
+  if(transpin == trans1){ 
+    delayMicroseconds(250);
+    int reading1 = digitalRead(read1);
+    int reading2 = digitalRead(read2);
+    int reading3 = digitalRead(read3);
+    int reading4 = digitalRead(read4);
+    int reading5 = digitalRead(read5);
+    int reading6 = digitalRead(read6);
+    int reading7 = digitalRead(read7);
+    int reading8 = digitalRead(read8);
+    digit1.concat(reading1);
+    digit1.concat(reading2);
+    digit1.concat(reading3);
+    digit1.concat(reading4);
+    digit1.concat(reading5);
+    digit1.concat(reading6);
+    digit1.concat(reading7);
+    digit1.concat(reading8);
+delayMicroseconds(500);
+//    portread1 = String(PINC, BIN);
+    return digit1;
+  }
+  else if(transpin == trans2){
+    delayMicroseconds(250);
+    int reading1 = digitalRead(read1);
+    int reading2 = digitalRead(read2);
+    int reading3 = digitalRead(read3);
+    int reading4 = digitalRead(read4);
+    int reading5 = digitalRead(read5);
+    int reading6 = digitalRead(read6);
+    int reading7 = digitalRead(read7);
+    int reading8 = digitalRead(read8);
+    digit2.concat(reading1);
+    digit2.concat(reading2);
+    digit2.concat(reading3);
+    digit2.concat(reading4);
+    digit2.concat(reading5);
+    digit2.concat(reading6);
+    digit2.concat(reading7);
+    digit2.concat(reading8);
+delayMicroseconds(500);
+//    portread2 = String(PINC, BIN);
+    return digit2;
+  }
+  else if(transpin == trans3){
+    delayMicroseconds(250);
+    int reading1 = digitalRead(read1);
+    int reading2 = digitalRead(read2);
+    int reading3 = digitalRead(read3);
+    int reading4 = digitalRead(read4);
+    int reading5 = digitalRead(read5);
+    int reading6 = digitalRead(read6);
+    int reading7 = digitalRead(read7);
+    int reading8 = digitalRead(read8);
+    digit3.concat(reading1);
+    digit3.concat(reading2);
+    digit3.concat(reading3);
+    digit3.concat(reading4);
+    digit3.concat(reading5);
+    digit3.concat(reading6);
+    digit3.concat(reading7);
+    digit3.concat(reading8);
+    delayMicroseconds(500);
+//    portread3 = String(PINC, BIN);
+    return digit3;
+  }
+}
+
+// Convert byte into a user-friendly decimal number
+String binToNumber(String digits1, String digits2, String digits3){ //digit1, digit2, digit3 respectively
+   digits1 = digits1.substring(0, 8);
+   digits2 = digits2.substring(0, 8);
+   digits3 = digits3.substring(0, 8);
+   
+   if(digits1.equals("11001111")){
+      number1 = "0";
+   }
+  else if(digits1.equals("00000110")){
+      number1 = "1";
+   }
+  else if(digits1.equals("10101011")){
+     number1 = "2";
+  }
+  else if(digits1.equals("00101111")){
+     number1 = "3";
+  }
+  else if(digits1.equals("01100110")){
+     number1 = "4";
+  }
+  else if(digits1.equals("01101101")){
+     number1 = "5";
+  }
+  else if(digits1.equals("11101101")){
+     number1 = "6";
+  }
+  else if(digits1.equals("00000111")){
+     number1 = "7";
+  }
+  else if(digits1.equals("11101111")){
+     number1 = "8";
+  }
+  else if(digits1.equals("01100111")){
+     number1 = "9";
+  }
+  if(digits2.equals("11011111")){
+     number2 = "0.";
+   }
+  else if(digits2.equals("00010110")){
+     number2 = "1.";
+  }
+  else if(digits2.equals("10111011")){
+     number2 = "2.";
+   }
+  else if(digits2.equals("00111111")){
+     number2 = "3.";
+  }
+  else if(digits2.equals("01110110")){
+     number2 = "4.";
+  }
+  else if(digits2.equals("01111101")){
+     number2 = "5.";
+  }
+  else if(digits2.equals("11111101")){
+     number2 = "6.";
+  }
+  else if(digits2.equals("00010111")){
+     number2 = "7.";
+  }
+  else if(digits2.equals("11111111")){
+     number2 = "8.";
+  }
+  else if(digits2.equals("01110111")){
+     number2 = "9.";
+  }
+  if(digits3.equals("11001111")){
+     number3 = "0";
+   }
+  if(digits3.equals("00000110")){
+     number3 = "1";
+   }
+  else if(digits3.equals("10101011")){
+     number3 = "2";
+   }
+  else if(digits3.equals("00101111")){
+     number3 = "3";
+  }
+  else if(digits3.equals("01100110")){
+     number3 = "4";
+  }
+  else if(digits3.equals("01101101")){
+     number3 = "5";
+  }
+  else if(digits3.equals("11101101")){
+     number3 = "6";
+  }
+  else if(digits3.equals("00000111")){
+     number3 = "7";
+  }
+  else if(digits3.equals("11101111")){
+     number3 = "8";
+  }
+  else if(digits3.equals("01100111")){
+     number3 = "9";
+  }
+  number.concat(number1);
+  number.concat(number2);
+  number.concat(number3);
+  return number;
+  }
+
+      
+
+void setup(){
+  Serial.begin(9600);
+  pinMode(trans1, INPUT);
+  pinMode(trans2, INPUT);
+  pinMode(trans3, INPUT);
+  pinMode(read1, INPUT);
+  pinMode(read2, INPUT);
+  pinMode(read3, INPUT);
+  pinMode(read4, INPUT);
+  pinMode(read5, INPUT);
+  pinMode(read6, INPUT);
+  pinMode(read7, INPUT);
+  pinMode(read8, INPUT);
+// DDRC = B00000000;
+  pinMode(41, OUTPUT);
+}
+
+
+void loop(){
+  digit1 = "";
+  digit2 = "";
+  digit3 = "";
+  number = "";
+  // Add delay to put read into middle of transition
+  while (digitalRead(trans1) == HIGH){
+    listening(trans1);
+  }
+  digitalWrite(41, HIGH);
+  readDigits(trans1);
+  while (digitalRead(trans2) == HIGH){ 
+    listening(trans2);
+  }
+  readDigits(trans2);
+  while (digitalRead(trans3) == HIGH){
+    listening(trans3);
+  }
+  readDigits(trans3);
+  digitalWrite(41, LOW);
+  Serial.println("digit1: " + digit1);
+  Serial.println("digit2: " + digit2);
+  Serial.println("digit3: " + digit3);
+  Serial.println(binToNumber(digit1, digit2, digit3));
+ 
+}
