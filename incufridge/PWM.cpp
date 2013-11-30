@@ -3,10 +3,12 @@
 int Pwm::numPwms = 0;
 Pwm* Pwm::pwms[20];
 
-Pwm::Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmState state)
+Pwm::Pwm(int pin, float periodSecs, float percentOn, float percentOff, PwmState state)
 {
   m_myPin = pin;
   m_myPeriodSecs = periodSecs;
+  Serial.println(m_myPeriodSecs);
+  Serial.println();
   m_myPercentOn = percentOn;
   m_myPercentOff = percentOff;
   m_myStartState = state;
@@ -54,13 +56,13 @@ void Pwm::Start(){
 
 void Pwm::ComputeTransitions(){
   //startTime = getTimeInMinutes();
-  m_startTime = m_time.getTimeInSeconds();
+  m_startTime = (float)m_time.getTimeInSeconds();
   Serial.println(m_startTime);
-  m_firstTransitionTime = m_time.addTime(m_startTime, int(m_myPercentOff * m_myPeriodSecs));
-  m_secondTransitionTime = m_time.addTime(m_startTime, int(m_myPeriodSecs));
   Serial.println(m_myPeriodSecs);
+  m_firstTransitionTime = m_startTime + (m_myPercentOff * m_myPeriodSecs);
+  m_secondTransitionTime = m_startTime + m_myPeriodSecs;
   Serial.println(m_firstTransitionTime);
-    Serial.println(m_secondTransitionTime);
+  Serial.println(m_secondTransitionTime);
   m_foundFirst = true;
 }
 

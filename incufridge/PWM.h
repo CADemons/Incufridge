@@ -7,7 +7,7 @@ enum PwmState{
 
 class Pwm{
   public:
-  Pwm(int pin, double periodSecs, double percentOn, double percentOff, PwmState state);
+  Pwm(int pin, float periodSecs, float percentOn, float percentOff, PwmState state);
   static void PwmCommand(String* args);
   void Start();
   void Stop();
@@ -19,13 +19,13 @@ class Pwm{
   private:
   void ChangePolarity();
   int m_myPin;
-  double m_myPeriodSecs;
-  double m_myPercentOn;
-  double m_myPercentOff;
+  float m_myPeriodSecs;
+  float m_myPercentOn;
+  float m_myPercentOff;
   PwmState m_myStartState;
-  int m_startTime;
-  int m_firstTransitionTime;
-  int m_secondTransitionTime;
+  float m_startTime;
+  float m_firstTransitionTime;
+  float m_secondTransitionTime;
   int m_currentTime;
   PwmState m_currentState;
   boolean m_foundFirst;
