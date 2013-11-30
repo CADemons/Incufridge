@@ -19,6 +19,10 @@
 #ifndef  BUTTON_H
 #define BUTTON_H
 
+enum c_Level{
+  c_LEVEL_LOW, c_LEVEL_HIGH
+};
+
 class Button{
 public: 
   Button(const int Pin, int msPressTime, const int PressLevel = c_LEVEL_HIGH);
