@@ -2,22 +2,22 @@
 
 Light::Light(int pin, PwmState state)
 {
-  myPin = pin;
-  myPwmState = state;
-  pinMode(pin, OUTPUT);
+  m_Pin = pin;
+  m_PwmState = state;
+  pinMode(m_Pin, OUTPUT);
 }
 
-void Light::LightOn(){
-  digitalWrite(myPin, HIGH);
+void Light::LightOn() {
+  digitalWrite(m_Pin, HIGH);
 };
 
 void Light::LightOff() {
-  digitalWrite(myPin, LOW);
+  digitalWrite(m_Pin, LOW);
 }
 
 void Light::DimToLevel(int level) {
   if (level > 0 && level < 255) {
-    analogWrite(myPin, level);
+    analogWrite(m_Pin, level);
   } else {
     Serial.println("Level must be between 0 and 255. Level = " + level);
   }
@@ -35,6 +35,13 @@ void Light::DimOverTime(int startLevel, int endLevel) {
       DimToLevel(i);
     } 
   }
+}
+
+void Light::LightFlash(int rate) {
+  LightOn();
+  delay(rate);
+  LightOff();
+  delay(rate);
 }
 
 

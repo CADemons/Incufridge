@@ -19,21 +19,22 @@
 
 #include "project.h"
 
-Fan::Fan(int pin, PwmState state){
+Fan::Fan(int pin, PwmState state) {
   m_pin = pin;
   m_state = state;
 }
 
 //Turn the fan on
-void Fan::FanOn(){
+void Fan::FanOn() {
   
 }
 
 //Turn the fan off
-void Fan::FanOff(){
+void Fan::FanOff() {
+  
 }
 
-void Fan::FanSpeed(){
+void Fan::FanSpeed() {
   
 }
 

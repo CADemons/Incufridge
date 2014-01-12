@@ -10,8 +10,8 @@ class Light{
     void LightFlash(int rate);
     void DimOverTime(int startLevel, int endLevel);
   private:
-    int myPin;
-    int myPwmState;
+    int m_Pin;
+    int m_PwmState;
 };
 
 #endif
