@@ -1,7 +1,11 @@
 #include "project.h"
 
 int Pwm::numPwms = 0;
-Pwm* Pwm::pwms[20];
+AList<Pwm> Pwm::pwms;
+
+Pwm::Pwm(){
+  
+}
 
 Pwm::Pwm(int pin, float periodSecs, float percentOn, float percentOff, PwmState state)
 {
@@ -13,10 +17,10 @@ Pwm::Pwm(int pin, float periodSecs, float percentOn, float percentOff, PwmState 
   m_myPercentOff = percentOff;
   m_myStartState = state;
   m_time = Time();
-  pinMode(m_myPin, OUTPUT);
-  pwms[numPwms] = this;
+  Start();
+  m_id=numPwms;
+  //pwms.Add(*this);
   numPwms++;
-  m_active = true;
 }
 
 void Pwm::PwmCommand(String* args){
@@ -43,7 +47,7 @@ void Pwm::PwmCommand(String* args){
 
 void Pwm::updateAll(){
   for(int i=0; i<numPwms; i++){
-    pwms[i]->Update();
+    pwms.GetAt(i).Update();
   }
 }
 
@@ -52,6 +56,7 @@ void Pwm::Start(){
   digitalWrite(m_myPin, m_myStartState);
   m_currentState = m_myStartState;
   ComputeTransitions();
+  m_active = true;
 }
 
 void Pwm::ComputeTransitions(){
@@ -81,13 +86,13 @@ void Pwm::ChangePolarity(){
     m_currentState = PWM_LOW;
   }
   digitalWrite(m_myPin, m_currentState);
- Serial.println(m_currentState); 
+ //Serial.println(m_currentState); 
 }
 
 //Run in loop
 void Pwm::Update(){
   if(m_active){
-   m_currentTime = m_time.getTimeInSeconds();
+   m_currentTime = (float)m_time.getTimeInSeconds();
    //If between transitions
    if(m_currentTime < m_secondTransitionTime && m_currentTime >= m_firstTransitionTime){
      if(m_foundFirst){

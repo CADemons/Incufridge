@@ -7,6 +7,7 @@ enum PwmState{
 
 class Pwm{
   public:
+  Pwm();
   Pwm(int pin, float periodSecs, float percentOn, float percentOff, PwmState state);
   static void PwmCommand(String* args);
   void Start();
@@ -14,10 +15,11 @@ class Pwm{
   void Update();
   void ComputeTransitions();
   static void updateAll();
-  static Pwm* pwms[20];
+  static AList<Pwm> pwms;
   static int numPwms;
   private:
   void ChangePolarity();
+  int m_id;
   int m_myPin;
   float m_myPeriodSecs;
   float m_myPercentOn;
