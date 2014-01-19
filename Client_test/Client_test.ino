@@ -1,7 +1,7 @@
 //#include "project.h"
 //const int ButtonHoldTime = 250;
-//int temps[12];
-//boolean recieving=false;
+int temps[12];
+boolean recieving=false;
 //Button tempminus(TemperatureMinusPin, ButtonHoldTime);
 //
 // Pwm myPwm = Pwm(3, 5, 0.8, 0.2, PWM_LOW);

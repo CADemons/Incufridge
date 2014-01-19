@@ -9,6 +9,8 @@ void setup(){
   Serial.begin(9600);
   processor.AddCommand(&go,"GO");
   processor.AddCommand(&Pwm::PwmCommand,"PWM");
+  processor.AddCommand(&Fan::FanOn, "FAN_ON");
+  processor.AddCommand(&Fan::FanOff, "FAN_OFF");
 //  pinMode(SimpleLight, OUTPUT);
 //  pinMode(trans1, INPUT);
 //  pinMode(trans2, INPUT);

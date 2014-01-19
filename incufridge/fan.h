@@ -24,8 +24,8 @@ class Fan {
   
   public:
     Fan(int pin, PwmState state);
-    void FanOn();
-    void FanOff();
+    static void FanOn();
+    static void FanOff();
     void FanSpeed();
     
   private:
