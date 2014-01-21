@@ -48,8 +48,11 @@ void CommandProcessor::ProcessCommand() {
     
     }else{
       AddCharacterToCommand(nextCharacter);
+      Serial.println("Added character");
     }
   }
+  }else{
+    Serial.println("Not available");
   }
 }
 

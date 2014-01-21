@@ -3,14 +3,16 @@ const int ButtonHoldTime = 2500;
 //Button light(SimpleLight, ButtonHoldTime, 1);
 //Pwm myPwm = Pwm(13, 20, 0.8, 0.2, PWM_LOW);
 CommandProcessor processor (';',60,0);
+boolean recieving=false;
+int temps[12];
 void setup(){
 //  pinMode(3, OUTPUT);
 //  myPwm.Start();
   Serial.begin(9600);
   processor.AddCommand(&go,"GO");
   processor.AddCommand(&Pwm::PwmCommand,"PWM");
-  processor.AddCommand(&Fan::FanOn, "FAN_ON");
-  processor.AddCommand(&Fan::FanOff, "FAN_OFF");
+//  processor.AddCommand(&Fan::FanOn, "FAN_ON");
+//  processor.AddCommand(&Fan::FanOff, "FAN_OFF");
 //  pinMode(SimpleLight, OUTPUT);
 //  pinMode(trans1, INPUT);
 //  pinMode(trans2, INPUT);
@@ -28,15 +30,36 @@ void setup(){
 }
 void loop(){
 //  light.Press();
-  Pwm::updateAll();
+ // Pwm::updateAll();
  // digitalWrite(3, HIGH);
-  //delay(1000);
+// if(!recieving){
+//  Serial.println('A');
+//    delay(1000);
+//  }
  // digitalWrite(3, LOW);
-  delay(10);
 }
 
 void serialEvent(){
-  processor.ProcessCommand();
+ // if(!recieving){
+  int checks=0;
+  char inbytes[30];
+  recieving=true;
+  Serial.flush();
+  if(Serial.read() == '~'){
+    delay(2000);
+    Serial.readBytesUntil('D',inbytes,30);
+    for(int a=0; a!=12; a++){
+      temps[a] = inbytes[a];
+      checks += temps[a];
+    }
+    Serial.println(checks);
+    Serial.println('R');
+  }else{
+    Serial.println("Processing command");
+     processor.ProcessCommand();
+  }
+      recieving=false;
+ // }
 }
 
 void go(String* args){
