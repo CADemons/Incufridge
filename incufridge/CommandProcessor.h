@@ -3,11 +3,12 @@
 
 typedef void (*func)(String*);
 
-class CommandProcessor{
+class CommandProcessor {
   public:
   CommandProcessor(char endOfCommand, int maxCommandLength, int first);
   void AddCommand(func command, String name);
   void ProcessCommand();
+  void ProcessCharacter(char in);
   String command;
   private:
   void SplitString(String input, char splitter);

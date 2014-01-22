@@ -56,6 +56,40 @@ void CommandProcessor::ProcessCommand() {
   }
 }
 
+void CommandProcessor::ProcessCharacter(char in) {
+  int nextCharacter;
+    nextCharacter = in;
+    if ((nextCharacter >= ' ') && (nextCharacter <= '~'))
+    { 
+      if (nextCharacter == m_endOfCommand)
+      {
+        //look up Command
+        //AddCharacterToCommand(m_endOfString);
+        String mainCommand = command;
+        if(command.indexOf(" ") != -1){
+        mainCommand = command.substring(0, command.indexOf(" "));
+        SplitString(command.substring(command.indexOf(" ")+1),' ');
+        }
+        m_index = m_first;
+        int found=0;
+        for(int i=0; i < m_lookupIndex; i++){
+          if(m_lookupStrings[i].equals(mainCommand)){
+            found=1;
+            m_lookupCommands[i](m_args);
+          }
+        }
+        if(found == 0){
+          Serial.println("Command not found.");
+        }
+        command = "";
+    
+    }else{
+      AddCharacterToCommand(nextCharacter);
+      Serial.println("Added character");
+    }
+  }
+}
+
 void CommandProcessor::SplitString(String input, char splitter){
     int count=0;
     while(input.indexOf(splitter) != -1){

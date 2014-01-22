@@ -5,7 +5,7 @@ const int ButtonHoldTime = 2500;
 CommandProcessor processor (';',60,0);
 boolean recieving=false;
 int temps[12];
-void setup(){
+void setup() {
 //  pinMode(3, OUTPUT);
 //  myPwm.Start();
   Serial.begin(9600);
@@ -25,47 +25,54 @@ void setup(){
 //  pinMode(read6, INPUT);
 //  pinMode(read7, INPUT);
 //  pinMode(read8, INPUT);
-  
-
 }
-void loop(){
+void loop() {
 //  light.Press();
  // Pwm::updateAll();
  // digitalWrite(3, HIGH);
-// if(!recieving){
-//  Serial.println('A');
-//    delay(1000);
-//  }
+ if(!recieving){
+  Serial.println('A');
+    delay(1000);
+  }
  // digitalWrite(3, LOW);
 }
 
-void serialEvent(){
- // if(!recieving){
-  int checks=0;
+void serialEvent() {
+ if(!recieving){
+  int checks = 0;
   char inbytes[30];
-  recieving=true;
+  recieving = true;
   Serial.flush();
-  if(Serial.read() == '~'){
+  char readChar = Serial.read();
+  if(readChar == '~'){
     delay(2000);
     Serial.readBytesUntil('D',inbytes,30);
-    for(int a=0; a!=12; a++){
+    for(int a = 0; a != 12; a++) {
       temps[a] = inbytes[a];
       checks += temps[a];
     }
     Serial.println(checks);
     Serial.println('R');
-  }else{
+  } else {
     Serial.println("Processing command");
-     processor.ProcessCommand();
+     delay(100);
+     int count = Serial.readBytesUntil('\0', inbytes, 30);
+     processor.ProcessCharacter(readChar);
+     //Serial.print(readChar);
+     for(int i = 0; i < count; i++) {
+       //Serial.print(inbytes[i]);
+       processor.ProcessCharacter(inbytes[i]);
+     }
+     //Serial.println();
   }
-      recieving=false;
- // }
+  recieving=false;
+ }
 }
 
-void go(String* args){
+void go(String* args) {
   Serial.println("gone");
-  for(int i=0; i<10; i++){
-    if(!args[i].equals("")){
+  for(int i = 0; i < 10; i++) {
+    if(!args[i].equals("")) {
     Serial.println(args[i]);
     }
   }
