@@ -25,13 +25,13 @@ Fan::Fan(int pin, PwmState state) {
 }
 
 //Turn the fan on
-void Fan::FanOn() {
-  
+void Fan::FanOn(String* commandIn) {
+  Serial.println("Fan On");
 }
 
 //Turn the fan off
-void Fan::FanOff() {
-  
+void Fan::FanOff(String* commandIn) {
+  Serial.println("Fan Off");
 }
 
 void Fan::FanSpeed() {
