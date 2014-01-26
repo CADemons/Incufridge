@@ -5,6 +5,16 @@ const int ButtonHoldTime = 2500;
 CommandProcessor processor (';',60,0);
 boolean recieving=false;
 int temps[12];
+SevenSegments SevenSegment = { 
+  c_ReadDigitPin37,  c_ReadDigitPin36,  c_ReadDigitPin35, 
+  c_ReadDigitPin34, c_ReadDigitPin33,  c_ReadDigitPin32,  
+  c_ReadDigitPin31,  c_ReadDigitPin30};
+int PreviousTime, CurrentTime, TimeElapsed;
+boolean EnoughTimeElapsed = false;
+
+LEDReader Reader = LEDReader(SevenSegment, c_Digit1TransitionPin, c_Digit2TransitionPin ,c_Digit3TransitionPin);
+
+
 void setup() {
 //  pinMode(3, OUTPUT);
 //  myPwm.Start();
@@ -14,19 +24,24 @@ void setup() {
   processor.AddCommand(&Fan::FanOn, "FAN_ON");
   processor.AddCommand(&Fan::FanOff, "FAN_OFF");
 //  pinMode(SimpleLight, OUTPUT);
-//  pinMode(trans1, INPUT);
-//  pinMode(trans2, INPUT);
-//  pinMode(trans3, INPUT);
-//  pinMode(read1, INPUT);
-//  pinMode(read2, INPUT);
-//  pinMode(read3, INPUT);
-//  pinMode(read4, INPUT);
-//  pinMode(read5, INPUT);
-//  pinMode(read6, INPUT);
-//  pinMode(read7, INPUT);
-//  pinMode(read8, INPUT);
+  Reader.Initialize();
+  PreviousTime = 0;
 }
 void loop() {
+
+
+/*  CurrentTime = millis();
+  TimeElapsed = CurrentTime - PreviousTime;
+  if(TimeElapsed > 5000){
+    EnoughTimeElapsed = true;
+  }
+  if(EnoughTimeElapsed){
+    Serial.println(Reader.ReadDisplay());
+    EnoughTimeElapsed = false;
+    PreviousTime = CurrentTime;
+  }*/
+  
+  
 //  light.Press();
  // Pwm::updateAll();
  // digitalWrite(3, HIGH);
