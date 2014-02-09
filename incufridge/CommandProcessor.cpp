@@ -16,7 +16,7 @@ void CommandProcessor::AddCommand(func command, String name){
 void CommandProcessor::AddCharacterToCommand(char nextCharacter) {
   command += String(nextCharacter);
 }
-
+/*
 void CommandProcessor::ProcessCommand() {
   int nextCharacter;
   if(Serial.available() > 0)
@@ -55,10 +55,9 @@ void CommandProcessor::ProcessCommand() {
     Serial.println("Not available");
   }
 }
-
+*/
 void CommandProcessor::ProcessCharacter(char in) {
-  int nextCharacter;
-    nextCharacter = in;
+    int nextCharacter = in;
     if ((nextCharacter >= ' ') && (nextCharacter <= '~'))
     { 
       if (nextCharacter == m_endOfCommand)
@@ -66,14 +65,18 @@ void CommandProcessor::ProcessCharacter(char in) {
         //look up Command
         //AddCharacterToCommand(m_endOfString);
         String mainCommand = command;
-        if(command.indexOf(" ") != -1){
-        mainCommand = command.substring(0, command.indexOf(" "));
-        SplitString(command.substring(command.indexOf(" ")+1),' ');
+         if(command.indexOf(" ") != -1) {
+         mainCommand = command.substring(0, command.indexOf(" "));
+         SplitString(command.substring(command.indexOf(" ")+1),' ');
+         Serial.println("Arguments found");
         }
         m_index = m_first;
         int found=0;
         for(int i=0; i < m_lookupIndex; i++){
-          if(m_lookupStrings[i].equals(mainCommand)){
+          Serial.print(mainCommand);
+          Serial.print(" vs ");
+          Serial.println(m_lookupStrings[i]);
+          if(m_lookupStrings[i].compareTo(mainCommand) == 0){
             found=1;
             m_lookupCommands[i](m_args);
           }
@@ -85,7 +88,6 @@ void CommandProcessor::ProcessCharacter(char in) {
     
     }else{
       AddCharacterToCommand(nextCharacter);
-      Serial.println("Added character");
     }
   }
 }

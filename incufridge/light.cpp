@@ -17,6 +17,7 @@ void Light::LightOn(String* commandIn) {
 }
 
 void Light::LightOff(String* commandIn) {
+  Serial.println("Light Off");
   digitalWrite(13, LOW);
 }
 
