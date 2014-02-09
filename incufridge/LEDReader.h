@@ -1,7 +1,7 @@
 #ifndef LEDREADER_H
 #define LEDREADER_H
 
-typedef struct{
+typedef struct {
   int BottomLeft;
   int TopLeft;
   int MiddleBar;
@@ -13,7 +13,7 @@ typedef struct{
 } 
 SevenSegments;
 
-class LEDReader{
+class LEDReader {
 public:
   LEDReader(SevenSegments SevenSegment, const int TensTransitionPin,
   const int OnesTransitionPin, const int DecimalTransitionPin);

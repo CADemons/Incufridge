@@ -1,4 +1,5 @@
 #include "project.h"
+
 const int ButtonHoldTime = 2500;
 //Button light(SimpleLight, ButtonHoldTime, 1);
 //Pwm myPwm = Pwm(13, 20, 0.8, 0.2, PWM_LOW);
@@ -19,10 +20,15 @@ void setup() {
 //  pinMode(3, OUTPUT);
 //  myPwm.Start();
   Serial.begin(9600);
+  
+  Light m_Light = new Light(c_SimpleLight);
+  
   processor.AddCommand(&go,"GO");
   processor.AddCommand(&Pwm::PwmCommand,"PWM");
   processor.AddCommand(&Fan::FanOn, "FAN_ON");
   processor.AddCommand(&Fan::FanOff, "FAN_OFF");
+  processor.AddCommand(&m_Light::LightOn, "LIGHT_ON");
+  processor.AddCommand(&m_Light::LightOff, "LIGHT_OFF");
 //  pinMode(SimpleLight, OUTPUT);
   Reader.Initialize();
   PreviousTime = 0;

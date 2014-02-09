@@ -8,6 +8,7 @@
 #include "PWM.h" 
 #include "fan.h"
 #include "light.h"
+#include "LEDReader.h"
 
 /*
 Version history:
