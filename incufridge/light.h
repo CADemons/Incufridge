@@ -4,14 +4,14 @@
 class Light{
   public:
     Light(int pin, PwmState state = PWM_LOW);
-    void LightOff();
-    void LightOn();
+    static void LightOff(String* commandIn);
+    static void LightOn(String* commandIn);
     void DimToLevel(int level);
     void LightFlash(int rate);
     void DimOverTime(int startLevel, int endLevel);
   private:
-    int m_Pin;
-    int m_PwmState;
+    static int m_Pin;
+    static PwmState m_PwmState;
 };
 
 #endif

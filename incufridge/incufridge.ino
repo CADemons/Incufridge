@@ -21,14 +21,14 @@ void setup() {
 //  myPwm.Start();
   Serial.begin(9600);
   
-  Light m_Light = new Light(c_SimpleLight);
+  Light m_Light(c_SimpleLight);
   
-  processor.AddCommand(&go,"GO");
+  /*processor.AddCommand(&go,"GO");
   processor.AddCommand(&Pwm::PwmCommand,"PWM");
   processor.AddCommand(&Fan::FanOn, "FAN_ON");
-  processor.AddCommand(&Fan::FanOff, "FAN_OFF");
-  processor.AddCommand(&m_Light::LightOn, "LIGHT_ON");
-  processor.AddCommand(&m_Light::LightOff, "LIGHT_OFF");
+  processor.AddCommand(&Fan::FanOff, "FAN_OFF");*/
+  processor.AddCommand(&Light::LightOn, "LIGHT_ON");
+  processor.AddCommand(&Light::LightOff, "LIGHT_OFF");
 //  pinMode(SimpleLight, OUTPUT);
   Reader.Initialize();
   PreviousTime = 0;

@@ -16,7 +16,8 @@
 //                      and sends the user a decimal number matching the display.
 //**************************************************************************
 
-#include "general.h"
+//#include "general.h"
+#include "project.h"
 
 
 /* TensDigit, OnesDigit, and DecimalDigit are the entire bytes of data for each 

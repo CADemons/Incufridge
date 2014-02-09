@@ -1,18 +1,23 @@
 #include "project.h"
 
+ int Light::m_Pin = 13;
+ PwmState Light::m_PwmState = PWM_LOW;
+
 Light::Light(int pin, PwmState state)
 {
   m_Pin = pin;
   m_PwmState = state;
-  pinMode(m_Pin, OUTPUT);
+  pinMode(13, OUTPUT);
 }
 
-void Light::LightOn() {
-  digitalWrite(m_Pin, HIGH);
-};
+void Light::LightOn(String* commandIn) {
+  Serial.println("Light On");
+  //digitalWrite(m_Pin, HIGH);
+  digitalWrite(13, HIGH);
+}
 
-void Light::LightOff() {
-  digitalWrite(m_Pin, LOW);
+void Light::LightOff(String* commandIn) {
+  digitalWrite(13, LOW);
 }
 
 void Light::DimToLevel(int level) {
@@ -38,9 +43,9 @@ void Light::DimOverTime(int startLevel, int endLevel) {
 }
 
 void Light::LightFlash(int rate) {
-  LightOn();
+  LightOn(new String);
   delay(rate);
-  LightOff();
+  LightOff(new String);
   delay(rate);
 }
 
