@@ -26,7 +26,7 @@ class Pwm{
   float m_startTime;
   float m_firstTransitionTime;
   float m_secondTransitionTime;
-  int m_currentTime;
+  long m_currentTime;
   PwmState m_currentState;
   boolean m_foundFirst;
   boolean m_active;
