@@ -23,10 +23,10 @@ void setup() {
   
   Light m_Light(c_SimpleLight);
   
-  /*processor.AddCommand(&go,"GO");
+  processor.AddCommand(&go,"GO");
   processor.AddCommand(&Pwm::PwmCommand,"PWM");
   processor.AddCommand(&Fan::FanOn, "FAN_ON");
-  processor.AddCommand(&Fan::FanOff, "FAN_OFF");*/
+  processor.AddCommand(&Fan::FanOff, "FAN_OFF");
   processor.AddCommand(&Light::LightOn, "LIGHT_ON");
   processor.AddCommand(&Light::LightOff, "LIGHT_OFF");
 //  pinMode(SimpleLight, OUTPUT);
@@ -49,7 +49,7 @@ void loop() {
   
   
 //  light.Press();
- // Pwm::updateAll();
+  Pwm::updateAll();
  // digitalWrite(3, HIGH);
  if(!recieving){
   Serial.println('A');

@@ -5,6 +5,7 @@ CommandProcessor::CommandProcessor(char endOfCommand, int maxCommandLength, int 
   m_index=m_first;
   m_lookupIndex = 0;
   m_endOfCommand = endOfCommand;
+  command = "";
 }
 
 void CommandProcessor::AddCommand(func command, String name){
@@ -14,7 +15,11 @@ void CommandProcessor::AddCommand(func command, String name){
 }
 
 void CommandProcessor::AddCharacterToCommand(char nextCharacter) {
-  command += String(nextCharacter);
+  byte test = 1;
+  String temp = String(nextCharacter);
+  Serial.print("Char: ");
+  Serial.println(temp);
+  command.concat(temp);
 }
 /*
 void CommandProcessor::ProcessCommand() {
@@ -57,7 +62,7 @@ void CommandProcessor::ProcessCommand() {
 }
 */
 void CommandProcessor::ProcessCharacter(char in) {
-    int nextCharacter = in;
+    char nextCharacter = in;
     if ((nextCharacter >= ' ') && (nextCharacter <= '~'))
     { 
       if (nextCharacter == m_endOfCommand)
@@ -65,8 +70,10 @@ void CommandProcessor::ProcessCharacter(char in) {
         //look up Command
         //AddCharacterToCommand(m_endOfString);
         String mainCommand = command;
-         if(command.indexOf(" ") != -1) {
+        if(command.indexOf(' ') != -1) {
          mainCommand = command.substring(0, command.indexOf(" "));
+         Serial.print("Main command is: ");
+         Serial.println(mainCommand);
          SplitString(command.substring(command.indexOf(" ")+1),' ');
          Serial.println("Arguments found");
         }
@@ -88,7 +95,11 @@ void CommandProcessor::ProcessCharacter(char in) {
     
     }else{
       AddCharacterToCommand(nextCharacter);
+      Serial.print("Command: ");
+      Serial.println(command);
     }
+  }else{
+    Serial.println("Invalid character");
   }
 }
 

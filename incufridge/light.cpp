@@ -7,18 +7,23 @@ Light::Light(int pin, PwmState state)
 {
   m_Pin = pin;
   m_PwmState = state;
-  pinMode(13, OUTPUT);
+  pinMode(40, OUTPUT);
+  digitalWrite(40, HIGH);
 }
 
 void Light::LightOn(String* commandIn) {
   Serial.println("Light On");
   //digitalWrite(m_Pin, HIGH);
-  digitalWrite(13, HIGH);
+  digitalWrite(40, LOW);
+  delay(100);
+  digitalWrite(40, HIGH);
 }
 
 void Light::LightOff(String* commandIn) {
   Serial.println("Light Off");
-  digitalWrite(13, LOW);
+  digitalWrite(40, LOW);
+  delay(100);
+  digitalWrite(40, HIGH);
 }
 
 void Light::DimToLevel(int level) {
