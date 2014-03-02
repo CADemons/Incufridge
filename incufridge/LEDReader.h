@@ -1,7 +1,7 @@
 #ifndef LEDREADER_H
 #define LEDREADER_H
 
-typedef struct {
+typedef struct{
   int BottomLeft;
   int TopLeft;
   int MiddleBar;
@@ -13,18 +13,26 @@ typedef struct {
 } 
 SevenSegments;
 
-class LEDReader {
+typedef struct{
+  String Pattern;
+  String Digit;
+}
+ConversionPattern;
+
+class LEDReader{
 public:
-  LEDReader(SevenSegments SevenSegment, const int TensTransitionPin,
-  const int OnesTransitionPin, const int DecimalTransitionPin);
+  LEDReader(SevenSegments Display, const int TransitionPinTens,
+  const int TransitionPinOnes, const int TransitionPinDecimals, 
+  ConversionPattern Tens[10], ConversionPattern Ones[10], ConversionPattern Decimals[10]);
   void Initialize();
-  String ReadDisplay();
+  String ShowDisplay();
 private:
-  SevenSegments m_SevenSegment;
-  int m_TensTransitionPin, m_OnesTransitionPin, m_DecimalTransitionPin;
-  String TensDigit, OnesDigit, DecimalDigit, TensNumber, OnesNumber, DecimalNumber, FinalResult;
+  SevenSegments m_Display;
+  int m_TransitionPinTens, m_TransitionPinOnes, m_TransitionPinDecimals;
+  String BinaryStringTens, BinaryStringOnes, BinaryStringDecimals, OutputNumbeTens, OutputNumberOnes, OutputNumberDecimals, FinalResult;
   int Listening(int TransitionPin);
   String ReadDigits(int TransitionPin);
-  String BinaryToNumber(String Digits1, String Digits2, String Digits3);
+  String Convert(String DigitTens, String DigitOnes, String DigitDecimals);
+  String Read(int TransitionPin);
 };
 #endif
