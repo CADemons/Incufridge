@@ -33,6 +33,7 @@ const int c_AnalogPin12 = 12;
 const int c_AnalogPin13 = 13;
 const int c_AnalogPin14 = 14;
 const int c_AnalogPin15 = 15;
+
 const int c_DigitalPin0 = 0;
 const int c_DigitalPin1 = 1;
 const int c_DigitalPin2 = 2;
@@ -112,10 +113,10 @@ const int c_LightBottomBackRight = c_DigitalPin53;
 const int c_TemperatureMinusPin = c_DigitalPin45;
 const int c_TemperaturePlusPin = c_DigitalPin44;
 
-const int c_AccessoriesTransitionPin = c_DigitalPin18;
+const int c_AccessoriesTransitionPin = c_DigitalPin21;
 const int c_Digit1TransitionPin = c_DigitalPin19;
-const int c_Digit2TransitionPin = c_DigitalPin20;
-const int c_Digit3TransitionPin = c_DigitalPin21;
+const int c_Digit2TransitionPin = c_DigitalPin18;
+const int c_Digit3TransitionPin = c_DigitalPin20;
 
 const int c_ReadDigitPin37 = c_DigitalPin37;
 const int c_ReadDigitPin36 = c_DigitalPin36;
