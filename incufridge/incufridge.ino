@@ -6,14 +6,36 @@ const int ButtonHoldTime = 2500;
 CommandProcessor processor (';',60,0);
 boolean recieving=false;
 int temps[12];
-SevenSegments SevenSegment = { 
+
+SevenSegments Display = { 
   c_ReadDigitPin37,  c_ReadDigitPin36,  c_ReadDigitPin35, 
   c_ReadDigitPin34, c_ReadDigitPin33,  c_ReadDigitPin32,  
   c_ReadDigitPin31,  c_ReadDigitPin30};
+
+ConversionPattern ConversionPatternTens[10] = {
+{"11001111", "0"}, {"00000110", "1"}, {"10101011", "2"}, {"00101111", "3"}, 
+{"01100110", "4"}, {"01101101", "5"}, {"11101101", "6"}, {"00000111", "7"},
+{"11101111", "8"}, {"01100111", "9"}};
+
+  
+ConversionPattern ConversionPatternOnes[10] = {
+{"11011111", "0."}, {"00010110", "1."}, {"10111011", "2."}, {"00111111", "3."}, 
+{"01110110", "4."}, {"01111101", "5."}, {"11111101", "6."}, {"00010111", "7."},
+{"11111111", "8."}, {"01110111", "9."}};
+  
+ConversionPattern ConversionPatternDecimals[10] = {
+ {"11001111", "0"}, {"00000110", "1"}, {"10101011", "2"}, {"00101111", "3"}, 
+{"01100110", "4"}, {"01101101", "5"}, {"11101101", "6"}, {"00000111", "7"},
+{"11101111", "8"}, {"01100111", "9"}};
+
+
+
+LEDReader Reader = LEDReader(Display, c_Digit1TransitionPin, c_Digit2TransitionPin, 
+c_Digit3TransitionPin, ConversionPatternTens, ConversionPatternOnes, ConversionPatternDecimals);
+
 int PreviousTime, CurrentTime, TimeElapsed;
 boolean EnoughTimeElapsed = false;
 
-LEDReader Reader = LEDReader(SevenSegment, c_Digit1TransitionPin, c_Digit2TransitionPin ,c_Digit3TransitionPin);
 
 
 void setup() {
