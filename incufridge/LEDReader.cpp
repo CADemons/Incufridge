@@ -19,10 +19,11 @@
 #include "project.h"
 
 
-/* BinaryStringTens, BinaryStringOnes, and BinaryStringDecimals are the entire bytes of data for each 
- number on the display. OutputNumberTens, OutputNumberOnes, and OutputNumberDecimals are used to 
- convert each digit from its binary state to user-friendly decimal integers. 
- FinalResult is the final number, in the form of nn.n. */
+/* BinaryStringTens, BinaryStringOnes, and BinaryStringDecimals are the entire 
+ bytes of data for each number on the display. OutputNumberTens, OutputNumberOnes, 
+ and OutputNumberDecimals are used to convert each digit from its binary state 
+ to user-friendly decimal integers. FinalResult is the final number, in the form 
+ of nn.n. */
 SevenSegments m_Display;
 ConversionPattern m_ConversionPatternsTens[10];
 ConversionPattern m_ConversionPatternsOnes[10];
@@ -48,9 +49,10 @@ ConversionPattern Tens[10], ConversionPattern Ones[10], ConversionPattern Decima
   }
 }
 
+/*This method sets each pin used in by this class to its proper mode. In
+ this case, all pins should be set to input.*/
 void LEDReader::Initialize(){
   pinMode(m_Display.BottomLeft, INPUT);
-  //  Serial.println("BottomLeft " + m_Display.BottomLeft);
   pinMode(m_Display.TopLeft, INPUT);
   pinMode(m_Display.MiddleBar, INPUT);
   pinMode(m_Display.DecimalPoint, INPUT);
@@ -74,8 +76,8 @@ int LEDReader::Listening(int TransitionPin){
 
 
 /* This method reads bits from the portion of the LED display designated by
- the transition pin, and converts the bits into a byte, which is a string that
- lists which individual LED lights are on at a given point in time. */
+ the transition pin and creates a binary pattern, which lists which individual 
+ LED lights are on at a given point in time. */
 String LEDReader::ReadDigits(int TransitionPin) {
   int BottomLeft = digitalRead(m_Display.BottomLeft);
   int TopLeft = digitalRead(m_Display.TopLeft);
@@ -120,19 +122,19 @@ String LEDReader::ReadDigits(int TransitionPin) {
   }
 }
 
+/*This method checks for a HIGH to LOW transition on a given Transition Pin.
+ When it finds such a transition, it waits for 15 microseconds before pulling
+ the binary data using ReadDigits().*/
 String LEDReader::Read(int TransitionPin){
   //  Serial.println("Hello there");
   if(digitalRead(TransitionPin) == LOW){
     while(digitalRead(TransitionPin) == LOW){
-      //      Serial.println("I'm low");
       Listening(TransitionPin);
     }
   }
   if(digitalRead(TransitionPin) == HIGH){
     while (digitalRead(TransitionPin) == HIGH){
-      //      Serial.println("I'm high");
       Listening(TransitionPin);
-
     }
     delayMicroseconds(15);
     return ReadDigits(TransitionPin);
@@ -141,40 +143,32 @@ String LEDReader::Read(int TransitionPin){
 
 
 /* This method converts the binary bytes into a decimal number
- by matching the binary byte to patterns that are known to produce 
+ by matching the read patterns to patterns that are known to produce 
  particular numbers. Then it combines the three digits into one decimal
- number. It takes BinaryStringTens, BinaryStringOnes, and BinaryStringDecimals as inputs. */
-String LEDReader::Convert(String DigitTens, String DigitOnes, String DigitDecimals){ //digit1, digit2, BinaryStringDecimals respectively
-  DigitTens = DigitTens.substring(0, 8);
-  DigitOnes = DigitOnes.substring(0, 8);
-  DigitDecimals = DigitDecimals.substring(0, 8);
+ number.  */
+String LEDReader::Convert(String PatternTens, String PatternOnes, String PatternDecimals){ 
+  PatternTens = PatternTens.substring(0, 8);
+  PatternOnes = PatternOnes.substring(0, 8);
+  PatternDecimals = PatternDecimals.substring(0, 8);
   int i, j, k;
-//  Serial.println("Loops commencing");
   for(i = 0; i < 10; i = i + 1){
-//        Serial.println("PatternTens" + String(i) + ": " +  m_ConversionPatternsTens[i].Pattern);
-//        Serial.println("DigitTens" + String(i) + ": " +  m_ConversionPatternsTens[i].Digit);
-//      Serial.println("PatternTens" + String(i) + ": " +  m_ConversionPatternsDecimals[i].Pattern);
-//        Serial.println("DigitTens" + String(i) + ": " +  m_ConversionPatternsDecimals[i].Digit);
-    if(DigitTens.equals(m_ConversionPatternsTens[i].Pattern)){
+    if(PatternTens.equals(m_ConversionPatternsTens[i].Pattern)){
       OutputNumberTens = m_ConversionPatternsTens[i].Digit;
-//      Serial.println("Tens found");
     }
   }
 
-for(j = 0; j < 10; j += 1){
-    if(DigitOnes.equals(m_ConversionPatternsOnes[j].Pattern)){
+  for(j = 0; j < 10; j += 1){
+    if(PatternOnes.equals(m_ConversionPatternsOnes[j].Pattern)){
       OutputNumberOnes = m_ConversionPatternsOnes[j].Digit;
-//      Serial.println("Ones found");
     }
-}
+  }
 
-for(k = 0; k < 10; k += 1){
-    if(DigitDecimals.equals(m_ConversionPatternsDecimals[k].Pattern)){
+  for(k = 0; k < 10; k += 1){
+    if(PatternDecimals.equals(m_ConversionPatternsDecimals[k].Pattern)){
       OutputNumberDecimals = m_ConversionPatternsDecimals[k].Digit;
-//      Serial.println("Decimal found");
     }
-}
-  
+  }
+
   FinalResult.concat(OutputNumberTens);
   FinalResult.concat(OutputNumberOnes);
   FinalResult.concat(OutputNumberDecimals);
@@ -182,24 +176,21 @@ for(k = 0; k < 10; k += 1){
 }
 
 
-/* This method pulls all the previous methods together. It uses Listening()
- to watch the transition pins for a transition, then it pulls the bits and
- converts the bits to a byte, and then matches the byte with its corresponding
- integer, and then returns the number on the LED display. */
+/* This method pulls all the previous methods together. It calls Read() to 
+ gather the binary patterns, and then calls Convert() to translate the patterns
+ into decimal digits.*/
 String LEDReader::ShowDisplay(){
   BinaryStringTens = "";
   BinaryStringOnes = "";
   BinaryStringDecimals = "";
   FinalResult = "";
-  digitalWrite(38, HIGH);
 
   BinaryStringTens = Read(m_TransitionPinTens);
   BinaryStringOnes = Read(m_TransitionPinOnes);
   BinaryStringDecimals = Read(m_TransitionPinDecimals);
-  digitalWrite(38, LOW);
-  //  Serial.println("I'm out!");
-   return Convert(BinaryStringTens, BinaryStringOnes, BinaryStringDecimals);
-  // return BinaryStringTens + " " + BinaryStringOnes + " " + BinaryStringDecimals + " " + Convert(BinaryStringTens, BinaryStringOnes, BinaryStringDecimals);
+
+  return Convert(BinaryStringTens, BinaryStringOnes, BinaryStringDecimals);
+  //  return BinaryStringTens + " " + BinaryStringOnes + " " + BinaryStringDecimals + " " + Convert(BinaryStringTens, BinaryStringOnes, BinaryStringDecimals);
 }
 
 //**************************************************************************
@@ -209,6 +200,7 @@ String LEDReader::ShowDisplay(){
 //
 //
 //**************************************************************************
+
 
 
 
