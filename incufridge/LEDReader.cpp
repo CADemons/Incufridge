@@ -190,7 +190,7 @@ String LEDReader::ShowDisplay(){
   BinaryStringDecimals = Read(m_TransitionPinDecimals);
 
   return Convert(BinaryStringTens, BinaryStringOnes, BinaryStringDecimals);
-  //  return BinaryStringTens + " " + BinaryStringOnes + " " + BinaryStringDecimals + " " + Convert(BinaryStringTens, BinaryStringOnes, BinaryStringDecimals);
+//   return BinaryStringTens + " " + BinaryStringOnes + " " + BinaryStringDecimals + " " + Convert(BinaryStringTens, BinaryStringOnes, BinaryStringDecimals);
 }
 
 //**************************************************************************
