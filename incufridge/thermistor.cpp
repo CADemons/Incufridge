@@ -44,7 +44,7 @@ float Thermistor::m_CountsToMilliVolts(int counts)
 float Thermistor::MilliVoltsToCelsius(float millivolts)
 {
   float celsius; 
-  celsius = millivolts;
+  celsius = (millivolts + 0.872)/(-0.0024);
   return celsius;
  
  // figure out which thermistors will be used- see data sheet 
@@ -78,7 +78,8 @@ float Thermistor::m_ReadTempCelsius()
 }
 
 //Read the temperature in millivolts
-float Thermistor::ReadMilliVolts(){
+float Thermistor::ReadMilliVolts() 
+{
   float millivolts;
   m_Read();
   millivolts = m_CountsToMilliVolts(m_Count);
@@ -86,10 +87,11 @@ float Thermistor::ReadMilliVolts(){
 }
 
 //Read the temperature based on m_Units
-float Thermistor:: ReadTemperature(){
+float Thermistor:: ReadTemperature() 
+{
   float temperature;
   temperature = m_ReadTempCelsius();
-  if(m_Units == FARENHEIT){
+  if(m_Units == FARENHEIT) {
     temperature = CelsiusToFarenheit(temperature);
   }
   return temperature;
