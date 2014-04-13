@@ -1,6 +1,7 @@
 #include "project.h"
 
-const int ButtonHoldTime = 2500;
+//Change display mode without changing temperature
+const int ButtonHoldTime = 2200;
 //Button light(SimpleLight, ButtonHoldTime, 1);
 //Pwm myPwm = Pwm(13, 20, 0.8, 0.2, PWM_LOW);
 CommandProcessor processor (';',60,0);
@@ -51,6 +52,10 @@ void setup() {
   processor.AddCommand(&Fan::FanOff, "FAN_OFF");
   processor.AddCommand(&Light::LightOn, "LIGHT_ON");
   processor.AddCommand(&Light::LightOff, "LIGHT_OFF");
+  processor.AddCommand(&ReadDisplay, "READ_DISPLAY");
+  processor.AddCommand(&PressButton, "PRESS_BUTTON");
+  processor.AddCommand(&SetTemp, "SET_TEMP");
+  
 //  pinMode(SimpleLight, OUTPUT);
   Reader.Initialize();
   PreviousTime = 0;
@@ -58,20 +63,20 @@ void setup() {
 void loop() {
 
 
-/*  CurrentTime = millis();
+  /*CurrentTime = millis();
   TimeElapsed = CurrentTime - PreviousTime;
   if(TimeElapsed > 5000){
     EnoughTimeElapsed = true;
   }
   if(EnoughTimeElapsed){
-    Serial.println(Reader.ReadDisplay());
+    Serial.println(Reader.ShowDisplay());
     EnoughTimeElapsed = false;
     PreviousTime = CurrentTime;
   }*/
   
   
 //  light.Press();
-  Pwm::updateAll();
+  //Pwm::updateAll();
  // digitalWrite(3, HIGH);
  if(!recieving){
   Serial.println('A');
@@ -116,9 +121,66 @@ void go(String* args) {
   Serial.println("gone");
   for(int i = 0; i < 10; i++) {
     if(!args[i].equals("")) {
-    Serial.println(args[i]);
+     Serial.println(args[i]);
     }
   }
+}
+
+void ReadDisplay(String* args) {
+  Serial.println(Reader.ShowDisplay());
+}
+
+void PressButton(String* args) {
+  char arg0[10];
+  char arg1[10];
+  args[0].toCharArray(arg0, 10);
+  args[1].toCharArray(arg1, 10);
+  int pin = atoi(arg0);
+  int hold = atoi(arg1);
+  PressButton(pin, hold);
+}
+
+void PressButton(int pin, int time) {
+  Serial.println(time);
+  Button button(pin, time, c_LEVEL_LOW);
+  button.Initialize();
+  button.HoldFor(time);
+}
+
+void SetTemp(String* args) {
+  char arg0[10];
+  args[0].toCharArray(arg0, 10);
+  float target = atof(arg0);
+  Button button(44, 0, c_LEVEL_LOW);
+  button.Initialize();
+  button.HoldFor(ButtonHoldTime);
+  if(target < GetDisplayFloat()) {
+    delay(200);
+    Button button(44, 0, c_LEVEL_LOW);
+    button.Initialize();
+    button.HoldFor(ButtonHoldTime);
+    while(target < GetDisplayFloat()) {
+      button.HoldFor(500);
+      delay(500);
+    }
+    button.Release();
+  } else {
+    delay(200);
+    Button button(45, 0, c_LEVEL_LOW);
+    button.Initialize();
+    button.HoldFor(ButtonHoldTime);
+    while(target > GetDisplayFloat()) {
+      button.HoldFor(500);
+      delay(500);
+    }
+    button.Release();
+  }
+}
+
+float GetDisplayFloat() {
+  char buf[10];
+  Reader.ShowDisplay().toCharArray(buf, 10);
+  return atof(buf);
 }
 /* for integration with GUI
 #include "project.h"

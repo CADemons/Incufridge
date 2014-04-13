@@ -110,8 +110,8 @@ const int c_LightBottomFrontRight = c_DigitalPin51;
 const int c_LightBottomBackLeft = c_DigitalPin52; 
 const int c_LightBottomBackRight = c_DigitalPin53; 
 
-const int c_TemperatureMinusPin = c_DigitalPin45;
-const int c_TemperaturePlusPin = c_DigitalPin44;
+const int c_TemperatureMinusPin = c_DigitalPin44;
+const int c_TemperaturePlusPin = c_DigitalPin45;
 
 const int c_AccessoriesTransitionPin = c_DigitalPin21;
 const int c_Digit1TransitionPin = c_DigitalPin19;

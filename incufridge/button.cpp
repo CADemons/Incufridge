@@ -18,14 +18,14 @@
 
 #include "project.h"
 
-Button::Button(const int Pin, int msPressTime, const int PressLevel){ 
+Button::Button(const int Pin, int msPressTime, int PressLevel) { 
   m_Pin = Pin;
   m_PressLevel = PressLevel;
-  if(m_PressLevel == c_LEVEL_HIGH){
+  if(m_PressLevel == c_LEVEL_HIGH) {
     m_ReleaseLevel = c_LEVEL_LOW;
-  }
-  else{
+  } else {
     m_ReleaseLevel = c_LEVEL_HIGH;
+    m_PressLevel = c_LEVEL_LOW;
   }
 }
 
@@ -39,9 +39,9 @@ void Button::Initialize(){
 
 /* This method will press a button until a function that releases
  the button is called. It will not block other functions.*/
-void Button::Hold(){
+void Button::Press(){
   if(IsUp()){
-    digitalWrite(m_Pin, c_LEVEL_HIGH); 
+    digitalWrite(m_Pin, m_PressLevel); 
   } 
 }
 
@@ -60,7 +60,7 @@ void Button::HoldFor(int sHoldTime){
  method. */
 void Button::Release(){
   if(IsDown()){
-    digitalWrite(m_Pin, c_LEVEL_LOW);
+    digitalWrite(m_Pin, m_ReleaseLevel);
   }
 }
 
