@@ -1,0 +1,8 @@
+GO arg1 arg2 ... //Test command, prints back arguments
+PWM pin periodSeconds percentOn percentOff offState //Start PWM cycle (not currently working) offState is PWM_LOW (default) or PWM_HIGH
+FAN_ON //NYI
+FAN_OFF //NYI
+LIGHT_ON
+LIGHT_OFF //Both commands change light state
+READ_DISPLAY //Prints out currently displayed temperature
+SET_TEMP temp //Sets target temperature to argument (5.0-56.0)
