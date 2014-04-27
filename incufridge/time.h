@@ -1,11 +1,11 @@
 #ifndef TIME_H
 #define TIME_H
 
-class Time{
+class Time {
   public:
-  Time();
-  int addTime(int t1, int t2);
-int getTimeInMinutes();
-int getTimeInSeconds();
+    Time();
+    long addTime(long t1, long t2);
+    long getTimeInMinutes();
+    long getTimeInSeconds();
 };
 #endif

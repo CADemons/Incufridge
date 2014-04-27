@@ -3,36 +3,40 @@
 //Change display mode without changing temperature
 const int ButtonHoldTime = 2200;
 //Button light(SimpleLight, ButtonHoldTime, 1);
-//Pwm myPwm = Pwm(13, 20, 0.8, 0.2, PWM_LOW);
-CommandProcessor processor (';',60,0);
-boolean recieving=false;
+Pwm myPwm = Pwm(7, 6, 0.5, 0.5, PWM_LOW);
+CommandProcessor processor (';', 60, 0);
+boolean recieving = false;
 int temps[12];
 
-SevenSegments Display = { 
-  c_ReadDigitPin37,  c_ReadDigitPin36,  c_ReadDigitPin35, 
-  c_ReadDigitPin34, c_ReadDigitPin33,  c_ReadDigitPin32,  
-  c_ReadDigitPin31,  c_ReadDigitPin30};
+SevenSegments Display = {
+  c_ReadDigitPin37,  c_ReadDigitPin36,  c_ReadDigitPin35,
+  c_ReadDigitPin34, c_ReadDigitPin33,  c_ReadDigitPin32,
+  c_ReadDigitPin31,  c_ReadDigitPin30
+};
 
 ConversionPattern ConversionPatternTens[10] = {
-{"11001111", "0"}, {"00000110", "1"}, {"10101011", "2"}, {"00101111", "3"}, 
-{"01100110", "4"}, {"01101101", "5"}, {"11101101", "6"}, {"00000111", "7"},
-{"11101111", "8"}, {"01100111", "9"}};
+  {"11001111", "0"}, {"00000110", "1"}, {"10101011", "2"}, {"00101111", "3"},
+  {"01100110", "4"}, {"01101101", "5"}, {"11101101", "6"}, {"00000111", "7"},
+  {"11101111", "8"}, {"01100111", "9"}
+};
 
-  
+
 ConversionPattern ConversionPatternOnes[10] = {
-{"11011111", "0."}, {"00010110", "1."}, {"10111011", "2."}, {"00111111", "3."}, 
-{"01110110", "4."}, {"01111101", "5."}, {"11111101", "6."}, {"00010111", "7."},
-{"11111111", "8."}, {"01110111", "9."}};
-  
+  {"11011111", "0."}, {"00010110", "1."}, {"10111011", "2."}, {"00111111", "3."},
+  {"01110110", "4."}, {"01111101", "5."}, {"11111101", "6."}, {"00010111", "7."},
+  {"11111111", "8."}, {"01110111", "9."}
+};
+
 ConversionPattern ConversionPatternDecimals[10] = {
- {"11001111", "0"}, {"00000110", "1"}, {"10101011", "2"}, {"00101111", "3"}, 
-{"01100110", "4"}, {"01101101", "5"}, {"11101101", "6"}, {"00000111", "7"},
-{"11101111", "8"}, {"01100111", "9"}};
+  {"11001111", "0"}, {"00000110", "1"}, {"10101011", "2"}, {"00101111", "3"},
+  {"01100110", "4"}, {"01101101", "5"}, {"11101101", "6"}, {"00000111", "7"},
+  {"11101111", "8"}, {"01100111", "9"}
+};
 
 
 
-LEDReader Reader = LEDReader(Display, c_Digit1TransitionPin, c_Digit2TransitionPin, 
-c_Digit3TransitionPin, ConversionPatternTens, ConversionPatternOnes, ConversionPatternDecimals);
+LEDReader Reader = LEDReader(Display, c_Digit1TransitionPin, c_Digit2TransitionPin,
+                             c_Digit3TransitionPin, ConversionPatternTens, ConversionPatternOnes, ConversionPatternDecimals);
 
 int PreviousTime, CurrentTime, TimeElapsed;
 boolean EnoughTimeElapsed = false;
@@ -40,14 +44,14 @@ boolean EnoughTimeElapsed = false;
 
 
 void setup() {
-//  pinMode(3, OUTPUT);
-//  myPwm.Start();
+  //  pinMode(3, OUTPUT);
+  myPwm.Start();
   Serial.begin(9600);
-  
+
   Light m_Light(c_SimpleLight);
-  
-  processor.AddCommand(&go,"GO");
-  processor.AddCommand(&Pwm::PwmCommand,"PWM");
+
+  processor.AddCommand(&go, "GO");
+  processor.AddCommand(&Pwm::PwmCommand, "PWM");
   processor.AddCommand(&Fan::FanOn, "FAN_ON");
   processor.AddCommand(&Fan::FanOff, "FAN_OFF");
   processor.AddCommand(&Light::LightOn, "LIGHT_ON");
@@ -55,8 +59,8 @@ void setup() {
   processor.AddCommand(&ReadDisplay, "READ_DISPLAY");
   processor.AddCommand(&PressButton, "PRESS_BUTTON");
   processor.AddCommand(&SetTemp, "SET_TEMP");
-  
-//  pinMode(SimpleLight, OUTPUT);
+
+  //  pinMode(SimpleLight, OUTPUT);
   Reader.Initialize();
   PreviousTime = 0;
 }
@@ -73,55 +77,57 @@ void loop() {
     EnoughTimeElapsed = false;
     PreviousTime = CurrentTime;
   }*/
-  
-  
-//  light.Press();
+
+
+  //  light.Press();
   //Pwm::updateAll();
- // digitalWrite(3, HIGH);
- if(!recieving){
-  Serial.println('A');
+  // digitalWrite(3, HIGH);
+  if (!recieving) {
+    Serial.println('A');
     delay(1000);
   }
- // digitalWrite(3, LOW);
+  myPwm.Update();
+  delay(100);
+  // digitalWrite(3, LOW);
 }
 
 void serialEvent() {
- if(!recieving){
-  int checks = 0;
-  char inbytes[30];
-  recieving = true;
-  Serial.flush();
-  char readChar = Serial.read();
-  if(readChar == '~'){
-    delay(2000);
-    Serial.readBytesUntil('D',inbytes,30);
-    for(int a = 0; a != 12; a++) {
-      temps[a] = inbytes[a];
-      checks += temps[a];
+  if (!recieving) {
+    int checks = 0;
+    char inbytes[30];
+    recieving = true;
+    Serial.flush();
+    char readChar = Serial.read();
+    if (readChar == '~') {
+      delay(2000);
+      Serial.readBytesUntil('D', inbytes, 30);
+      for (int a = 0; a != 12; a++) {
+        temps[a] = inbytes[a];
+        checks += temps[a];
+      }
+      Serial.println(checks);
+      Serial.println('R');
+    } else {
+      Serial.println("Processing command");
+      delay(100);
+      int count = Serial.readBytesUntil('\0', inbytes, 30);
+      processor.ProcessCharacter(readChar);
+      //Serial.print(readChar);
+      for (int i = 0; i < count; i++) {
+        //Serial.print(inbytes[i]);
+        processor.ProcessCharacter(inbytes[i]);
+      }
+      //Serial.println();
     }
-    Serial.println(checks);
-    Serial.println('R');
-  } else {
-    Serial.println("Processing command");
-     delay(100);
-     int count = Serial.readBytesUntil('\0', inbytes, 30);
-     processor.ProcessCharacter(readChar);
-     //Serial.print(readChar);
-     for(int i = 0; i < count; i++) {
-       //Serial.print(inbytes[i]);
-       processor.ProcessCharacter(inbytes[i]);
-     }
-     //Serial.println();
+    recieving = false;
   }
-  recieving=false;
- }
 }
 
 void go(String* args) {
   Serial.println("gone");
-  for(int i = 0; i < 10; i++) {
-    if(!args[i].equals("")) {
-     Serial.println(args[i]);
+  for (int i = 0; i < 10; i++) {
+    if (!args[i].equals("")) {
+      Serial.println(args[i]);
     }
   }
 }
@@ -151,29 +157,33 @@ void SetTemp(String* args) {
   char arg0[10];
   args[0].toCharArray(arg0, 10);
   float target = atof(arg0);
+  target = round(target * 2) / 2;
+  Serial.println("Setting temp: " + String(target));
   Button button(44, 0, c_LEVEL_LOW);
   button.Initialize();
   button.HoldFor(ButtonHoldTime);
-  if(target < GetDisplayFloat()) {
-    delay(200);
-    Button button(44, 0, c_LEVEL_LOW);
-    button.Initialize();
-    button.HoldFor(ButtonHoldTime);
-    while(target < GetDisplayFloat()) {
-      button.HoldFor(500);
-      delay(500);
+  while (target != GetDisplayFloat()) {
+    if (target < GetDisplayFloat()) {
+      delay(200);
+      Button button(44, 0, c_LEVEL_LOW);
+      button.Initialize();
+      //button.HoldFor(ButtonHoldTime);
+      while (target < GetDisplayFloat()) {
+        button.HoldFor(100);
+        delay(100);
+      }
+      button.Release();
+    } else {
+      delay(200);
+      Button button(45, 0, c_LEVEL_LOW);
+      button.Initialize();
+      //button.HoldFor(ButtonHoldTime);
+      while (target > GetDisplayFloat()) {
+        button.HoldFor(100);
+        delay(100);
+      }
+      button.Release();
     }
-    button.Release();
-  } else {
-    delay(200);
-    Button button(45, 0, c_LEVEL_LOW);
-    button.Initialize();
-    button.HoldFor(ButtonHoldTime);
-    while(target > GetDisplayFloat()) {
-      button.HoldFor(500);
-      delay(500);
-    }
-    button.Release();
   }
 }
 
@@ -194,7 +204,7 @@ void setup(){
   pinMode(3, OUTPUT);
   myPwm.Start();
   Serial.begin(9600);
-  
+
 
 }
 void loop(){

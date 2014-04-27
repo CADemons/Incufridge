@@ -69,7 +69,8 @@ void Pwm::ComputeTransitions() {
 void Pwm::Stop() {
   m_currentState = m_myStartState;
   ChangePolarity();
-  m_active = false;  
+  m_active = false;
+  Serial.println("Stopped");  
 }
 
 
