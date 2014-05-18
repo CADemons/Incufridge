@@ -10,7 +10,8 @@
 //  Title		General Variables
 //  Filename		general.h
 //  Originator  	Kiyun Kim 
-//  Archive Location	(wherever on github)
+//  Archive Location	https://github.com/CADemons/Incufridge/blob/master/incufridge/general.h
+//  Version		-
 //
 //  Overview		Sets some project-wide variables.
 //
