@@ -7,13 +7,13 @@
 //
 //**************************************************************************
 //
-//  Title		- Thermistor class
-//  Filename		- Thermistor.h
-//  Originator  	- 
-//  Archive Location	- 
+//  Title		Thermistor Class
+//  Filename		thermistor.h
+//  Originator  	Kiyun Kim
+//  Archive Location	https://github.com/CADemons/Incufridge/blob/master/incufridge/thermistor.h
 //  Version		- 
 //
-//  Overview		- Provides ability to read temperature in Farenheit or Celsius
+//  Overview		Provides ability to read temperature in Farenheit or Celsius
 //
 //**************************************************************************
 #ifndef  THERMISTOR_H
