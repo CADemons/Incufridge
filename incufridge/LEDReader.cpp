@@ -7,10 +7,11 @@
 //
 //**************************************************************************
 //
-//  Title		Read LED Display
-//  Filename		readleddisplay.cpp
+//  Title		LEDReader
+//  Filename		LEDReader.cpp
 //  Originator  	Kiyun Kim  
-//  Archive Location	(wherever this is on github)
+//  Archive Location	https://github.com/CADemons/Incufridge/blob/master/incufridge/LEDReader.cpp
+//  Version		-
 //
 //  Overview		Reads off which LEDs are on at any given point in time
 //                      and sends the user a decimal number matching the display.
@@ -19,7 +20,7 @@
 #include "project.h"
 
 
-/* BinaryStringTens, BinaryStringOnes, and BinaryStringDecimals are the entire 
+/* BinaryStringTens, BinaryStringOne//  Version		-s, and BinaryStringDecimals are the entire 
  bytes of data for each number on the display. OutputNumberTens, OutputNumberOnes, 
  and OutputNumberDecimals are used to convert each digit from its binary state 
  to user-friendly decimal integers. FinalResult is the final number, in the form 
@@ -49,8 +50,7 @@ ConversionPattern Tens[10], ConversionPattern Ones[10], ConversionPattern Decima
   }
 }
 
-/*This method sets each pin used in by this class to its proper mode. In
- this case, all pins should be set to input.*/
+/* This method sets each pin used in by this class to its proper mode (INPUT). */
 void LEDReader::Initialize(){
   pinMode(m_Display.BottomLeft, INPUT);
   pinMode(m_Display.TopLeft, INPUT);
@@ -63,7 +63,6 @@ void LEDReader::Initialize(){
   pinMode(m_TransitionPinTens, INPUT);
   pinMode(m_TransitionPinOnes, INPUT);
   pinMode(m_TransitionPinDecimals, INPUT);
-  pinMode(38, OUTPUT);
 }
 
 
@@ -122,11 +121,9 @@ String LEDReader::ReadDigits(int TransitionPin) {
   }
 }
 
-/*This method checks for a HIGH to LOW transition on a given Transition Pin.
- When it finds such a transition, it waits for 15 microseconds before pulling
- the binary data using ReadDigits().*/
+/* This method checks for a HIGH to LOW transition on a given Transition Pin.
+ When it finds such a transition, it pulls the binary pattern of the display. */
 String LEDReader::Read(int TransitionPin){
-  //  Serial.println("Hello there");
   if(digitalRead(TransitionPin) == LOW){
     while(digitalRead(TransitionPin) == LOW){
       Listening(TransitionPin);
@@ -178,7 +175,7 @@ String LEDReader::Convert(String PatternTens, String PatternOnes, String Pattern
 
 /* This method pulls all the previous methods together. It calls Read() to 
  gather the binary patterns, and then calls Convert() to translate the patterns
- into decimal digits.*/
+ into decimal digits. */
 String LEDReader::ShowDisplay(){
   BinaryStringTens = "";
   BinaryStringOnes = "";
@@ -190,7 +187,6 @@ String LEDReader::ShowDisplay(){
   BinaryStringDecimals = Read(m_TransitionPinDecimals);
 
   return Convert(BinaryStringTens, BinaryStringOnes, BinaryStringDecimals);
-//   return BinaryStringTens + " " + BinaryStringOnes + " " + BinaryStringDecimals + " " + Convert(BinaryStringTens, BinaryStringOnes, BinaryStringDecimals);
 }
 
 //**************************************************************************
@@ -200,7 +196,6 @@ String LEDReader::ShowDisplay(){
 //
 //
 //**************************************************************************
-
 
 
 
