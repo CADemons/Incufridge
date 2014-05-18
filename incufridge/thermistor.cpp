@@ -7,18 +7,19 @@
 //
 //**************************************************************************
 //
-//  Title		- Thermistor class
-//  Filename		- Thermistor.cpp
-//  Originator  	-  
-//  Archive Location	-
+//  Title		Thermistor 
+//  Filename            thermistor.cpp
+//  Originator  	Kiyun Kim
+//  Archive Location	https://github.com/CADemons/Incufridge/blob/master/incufridge/thermistor.cpp
 //  Version		-
 //
-//  Overview		- Provides ability to read temperature in Celsius or Farenheit
-//
+//  Overview		Provides ability to read temperature in Celsius or 
+//                      Farenheit from a thermistor.
 //**************************************************************************
 
 #include "project.h"
 
+/* Constructor. */
 Thermistor::Thermistor(int pin, TemperatureUnits units)
 {
   m_Pin = pin;
@@ -26,13 +27,13 @@ Thermistor::Thermistor(int pin, TemperatureUnits units)
   m_Units = units;
 }
 
-//Read the counts
+/* Reads the counts. */
 void Thermistor::m_Read()
 {
   m_Count = analogRead(m_Pin);
 }
 
-//Convert counts to millivolts
+/* Convert counts to millivolts. */
 float Thermistor::m_CountsToMilliVolts(int counts)
 {
   float millivolts;
@@ -40,7 +41,7 @@ float Thermistor::m_CountsToMilliVolts(int counts)
   return millivolts;
 }
 
-//Convert millivolts to Celsius
+/* Converts millivolts to Celsius. */
 float Thermistor::MilliVoltsToCelsius(float millivolts)
 {
   float celsius; 
@@ -50,7 +51,7 @@ float Thermistor::MilliVoltsToCelsius(float millivolts)
  // figure out which thermistors will be used- see data sheet 
 }
 
-//Convert Celsius to Farenheit
+/* Converts Celsius to Farenheit. */
 float Thermistor::CelsiusToFarenheit(float celsius)
 {
   float farenheit;
@@ -58,7 +59,7 @@ float Thermistor::CelsiusToFarenheit(float celsius)
   return farenheit;
 }
 
-//Convert Farenheit to Celsius
+/* Converts Farenheit to Celsius. */
 float Thermistor::FarenheitToCelsius(float farenheit)
 {
   float celsius;
@@ -66,7 +67,7 @@ float Thermistor::FarenheitToCelsius(float farenheit)
   return celsius;
 }
 
-//Read the temperature in Celsius
+/* Reads the temperature in Celsius. */
 float Thermistor::m_ReadTempCelsius()
 {
   float millivolts;
@@ -77,7 +78,7 @@ float Thermistor::m_ReadTempCelsius()
   return temperature;
 }
 
-//Read the temperature in millivolts
+/* Reada the temperature in millivolts. */
 float Thermistor::ReadMilliVolts() 
 {
   float millivolts;
@@ -86,7 +87,7 @@ float Thermistor::ReadMilliVolts()
   return millivolts;
 }
 
-//Read the temperature based on m_Units
+/* Reads the temperature based on m_Units. */
 float Thermistor:: ReadTemperature() 
 {
   float temperature;
@@ -97,7 +98,7 @@ float Thermistor:: ReadTemperature()
   return temperature;
 }
 
-//Read the temperature in Celsius
+/* Reads the temperature in Celsius. */
 float Thermistor::ReadCelsius()
 {
   float celsius;
@@ -105,7 +106,7 @@ float Thermistor::ReadCelsius()
   return celsius;
 }
 
-//Read the temperature in Farenheit
+/* Reads the temperature in Farenheit. */
 float Thermistor::ReadFarenheit()
 {
   float farenheit;
