@@ -1,3 +1,21 @@
+//**************************************************************************
+//
+//				COPYRIGHT NOTICE
+//			Copyright 2013 CONCORD ACADEMY
+//		This program is the property of CONCORD ACADEMY
+//		Any unauthorized use or duplication is prohibited
+//
+//**************************************************************************
+//
+//  Title		LEDReader Class
+//  Filename		LEDReader.h
+//  Originator  	Kiyun Kim  
+//  Archive Location	https://github.com/CADemons/Incufridge/blob/master/incufridge/LEDReader.h
+//  Version		-
+//
+//  Overview		Provides framework for the LEDReader class, which allows
+//                      the computer to read numbers off the LED display.
+//**************************************************************************
 #ifndef LEDREADER_H
 #define LEDREADER_H
 
@@ -36,3 +54,10 @@ private:
   String Read(int TransitionPin);
 };
 #endif
+//**************************************************************************
+//
+//  REVISION HISTORY:
+//
+//
+//
+//**************************************************************************
