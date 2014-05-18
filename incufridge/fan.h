@@ -10,14 +10,14 @@
 //
 //**************************************************************************
 //
-//  Title		- Fan class
-//  Filename		- fan.h
-//  Originator  	-  
-//  Archive Location	-
+//  Title		Fan Class
+//  Filename		fan.h
+//  Originator  	Kiyun Kim 
+//  Archive Location	https://github.com/CADemons/Incufridge/blob/master/incufridge/fan.h
 //  Version		-
 //
-//  Overview		- Provides ability to turn fan on and off
-//
+//  Overview		Provides framework for the Fan class, which allows the 
+//                      user to control an external fan.
 //**************************************************************************
 
 class Fan {
