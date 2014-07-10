@@ -3,7 +3,7 @@
 //Change display mode without changing temperature
 const int ButtonHoldTime = 2200;
 //Button light(SimpleLight, ButtonHoldTime, 1);
-Pwm myPwm = Pwm(7, 6, 0.5, 0.5, PWM_LOW);
+//Pwm myPwm = Pwm(7, 6, 0.5, 0.5, PWM_LOW);
 CommandProcessor processor (';', 60, 0);
 boolean recieving = false;
 int temps[12];
@@ -45,7 +45,7 @@ boolean EnoughTimeElapsed = false;
 
 void setup() {
   //  pinMode(3, OUTPUT);
-  myPwm.Start();
+  //myPwm.Start();
   Serial.begin(9600);
 
   Light m_Light(c_SimpleLight);
@@ -80,13 +80,13 @@ void loop() {
 
 
   //  light.Press();
-  //Pwm::updateAll();
+  Pwm::updateAll();
   // digitalWrite(3, HIGH);
   if (!recieving) {
     Serial.println('A');
     delay(1000);
   }
-  myPwm.Update();
+  //myPwm.Update();
   delay(100);
   // digitalWrite(3, LOW);
 }

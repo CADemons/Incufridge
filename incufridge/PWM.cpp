@@ -7,15 +7,11 @@ Pwm::Pwm(int pin, float periodSecs, float percentOn,
     float percentOff, PwmState state) {
   m_myPin = pin;
   m_myPeriodSecs = periodSecs;
-  Serial.println(m_myPeriodSecs);
-  Serial.println();
   m_myPercentOn = percentOn;
   m_myPercentOff = percentOff;
   m_myStartState = state;
   m_time = Time();
   pinMode(m_myPin, OUTPUT);
-  pwms[numPwms] = this;
-  numPwms++;
   m_active = true;
 }
 
@@ -38,12 +34,16 @@ void Pwm::PwmCommand(String* args) {
   Serial.println(atof(arg3));
   Serial.println(state);
   Serial.println();
-  Pwm(atoi(arg0), atof(arg1), atof(arg2), atof(arg3), state);
+  Pwm myPwm = Pwm(atoi(arg0), atof(arg1), atof(arg2), atof(arg3), state);
+  myPwm.Start();
+  pwms[numPwms] = &myPwm;
+  numPwms++;
 }
 
 void Pwm::updateAll() {
   for(int i=0; i<numPwms; i++) {
-    pwms[i] -> Update();
+    pwms[i]->Update();
+    Serial.println("Updated PWM " + String(i));
   }
 }
 
