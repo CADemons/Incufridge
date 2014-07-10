@@ -10,7 +10,8 @@
 //  Title		Pin Assignments
 //  Filename		mega_arduino_pinassignments.h
 //  Originator  	Kiyun Kim 
-//  Archive Location	- (wherever this is on  github)
+//  Archive Location	https://github.com/CADemons/Incufridge/blob/master/incufridge/mega_arduino_pinassignments.h
+//  Version		-
 //
 //  Overview		Contains a list of all possible pins on the Arduino
 //                      Mega 2560 and constants assigning pins to particular

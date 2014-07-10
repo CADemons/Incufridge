@@ -10,7 +10,8 @@
 //  Title		Button Class
 //  Filename		button.h
 //  Originator  	Kiyun Kim 
-//  Archive Location	- (wherever this is on  github)
+//  Archive Location	https://github.com/CADemons/Incufridge/blob/master/incufridge/button.h
+//  Version		-
 //
 //  Overview		Provides framework for the Button class, which allows
 //                      the user to press and release buttons.
@@ -45,7 +46,6 @@ private:
 //
 //
 //**************************************************************************
-
 
 
 

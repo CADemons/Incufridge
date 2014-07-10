@@ -10,7 +10,8 @@
 //  Title		Button Implementation
 //  Filename		button.cpp
 //  Originator  	Kiyun Kim  
-//  Archive Location	(wherever this is on github)
+//  Archive Location	https://github.com/CADemons/Incufridge/blob/master/incufridge/button.cpp
+//  Version		-
 //
 //  Overview		Allows user to press and release a button. 
 //
@@ -18,6 +19,7 @@
 
 #include "project.h"
 
+/* Constructor */
 Button::Button(const int Pin, int msPressTime, int PressLevel) { 
   m_Pin = Pin;
   m_PressLevel = PressLevel;
@@ -30,8 +32,7 @@ Button::Button(const int Pin, int msPressTime, int PressLevel) {
 }
 
 
-/* This method initializes the pin associated with the button.
- It will set each pin as an output. */
+/* This method initializes the pin associated with the button as an output. */
 void Button::Initialize(){
   pinMode(m_Pin, OUTPUT);
 }
@@ -47,7 +48,7 @@ void Button::Press(){
 
 
 /* This method will press a button and hold for a given number of
- seconds (number of seconds must exceed 2.5 seconds). It will block 
+ seconds (number of seconds must exceed 2.2 seconds). It will block 
  all other functions.*/
 void Button::HoldFor(int sHoldTime){ 
   digitalWrite(m_Pin, m_PressLevel);
@@ -65,9 +66,7 @@ void Button::Release(){
 }
 
 
-/* This method checks to see if a given pin is in the LOW state (c_LEVEL_LOW). 
- If this is true, then the button is not currently pressed, and 
- the function returns true. */
+/* This method checks to see if a given pin is in the unpressed state (LOW).*/ 
 boolean Button::IsUp(){
   if(digitalRead(m_Pin) == m_ReleaseLevel){
     return true;
@@ -78,9 +77,7 @@ boolean Button::IsUp(){
 }
 
 
-/* This method checks to see if a given pin is in the HIGH state (c_LEVEL_HIGH). 
- If this is true, then the button is currently pressed, and the function
- returns true. */
+/* This method checks to see if a given pin is in the state designated as the 'pressed' state (HIGH). */
 boolean Button::IsDown(){
   if(digitalRead(m_Pin) == m_PressLevel){
     return true;
@@ -97,4 +94,3 @@ boolean Button::IsDown(){
 //
 //
 //**************************************************************************
-

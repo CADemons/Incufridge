@@ -1,3 +1,22 @@
+//**************************************************************************
+//
+//				COPYRIGHT NOTICE
+//			Copyright 2013 CONCORD ACADEMY
+//		This program is the property of CONCORD ACADEMY
+//		Any unauthorized use or duplication is prohibited
+//
+//**************************************************************************
+//
+//  Title		Temperature Class
+//  Filename		temperature.h
+//  Originator  	Kiyun Kim  
+//  Archive Location	https://github.com/CADemons/Incufridge/blob/master/incufridge/temperature.h
+//  Version		-
+//
+//  Overview		Provides framework for the temperature class, which 
+//                      allows the user to get the temperature from thermistors.
+//**************************************************************************
+
 #ifndef TEMPERATURE_H
 #define TEMPERATURE_H
 
@@ -15,3 +34,11 @@ class Temperature{
 };
 
 #endif
+
+//**************************************************************************
+//
+//  REVISION HISTORY:
+//
+//
+//
+//**************************************************************************

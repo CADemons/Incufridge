@@ -5,4 +5,4 @@ FAN_OFF //NYI
 LIGHT_ON
 LIGHT_OFF //Both commands change light state
 READ_DISPLAY //Prints out currently displayed temperature
-SET_TEMP temp //Sets target temperature to argument (5.0-56.0)
+SET_TEMP temp //Sets target temperature to argument (5.0-56.0) If target temperature is not a multiple of 0.5, it will be rounded.
